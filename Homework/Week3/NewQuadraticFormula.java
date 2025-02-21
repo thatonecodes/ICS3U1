@@ -3,7 +3,6 @@ package Homework.Week3;
 import java.util.Scanner;
 
 public class NewQuadraticFormula {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -19,14 +18,14 @@ public class NewQuadraticFormula {
         scanner.close();
         double discriminant = Math.pow(bValue, 2) - 4 * aValue * cValue;
 
-        double root1 = ((-bValue + Math.sqrt(discriminant)) / 2) * aValue;
-        double root2 = ((-bValue - Math.sqrt(discriminant)) / 2) * aValue;
-
         if (discriminant < 0) {
             System.out.println("\n\nRoot 1 and root 2 is not real.");
         } else if (discriminant == 0) {
-            System.out.println("\n\nThere is exactly one real root: " + root1);
+            double root = ((-bValue + Math.sqrt(discriminant)) / 2) * aValue;
+            System.out.println("\n\nThere is exactly one real root: " + root);
         } else {
+            double root1 = ((-bValue + Math.sqrt(discriminant)) / 2) * aValue;
+            double root2 = ((-bValue - Math.sqrt(discriminant)) / 2) * aValue;
             System.out.println("\n\nROOTS ARE: " + root1 + root2);
         }
     }
