@@ -7,7 +7,7 @@ public class HeronsFormula {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nEnter the length of side A: ");
-        double sideA = scanner.nextDouble();
+        double a = scanner.nextDouble();
 
         System.out.println("Enter the length of side B: ");
         double sideB = scanner.nextDouble();
@@ -17,9 +17,9 @@ public class HeronsFormula {
         scanner.close();
 
         double area = Math
-                .sqrt(4 * sideA * sideA * sideB * sideB - Math.pow((sideA * sideA + sideB * sideB - sideC * sideC), 2))
+                .sqrt(4 * a * a * sideB * sideB - Math.pow(a * a + sideB * sideB - sideC * sideC, 2))
                 / 4;
 
-        System.out.printf("The area of the triangle is: %.2f", area);
+        System.out.printf("The area of the triangle is: %.4f", area);
     }
 }
