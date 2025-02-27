@@ -3,27 +3,22 @@ package Assignments.BooleanTestAssignment;
 import java.util.Scanner;
 
 public class BooleanTest {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nPlease enter the a value(boolean): ");
-        Boolean aValue = scanner.nextBoolean();
+        boolean a = scanner.nextBoolean();
 
         System.out.println("Please enter the b value(boolean): ");
-        Boolean bValue = scanner.nextBoolean();
+        boolean b = scanner.nextBoolean();
 
         System.out.println("Please enter the c value(boolean): ");
-        Boolean cValue = scanner.nextBoolean();
+        boolean c = scanner.nextBoolean();
 
         System.out.println("Please enter the d value(boolean): ");
-        Boolean dValue = scanner.nextBoolean();
+        boolean d = scanner.nextBoolean();
         scanner.close();
 
-        Boolean output = (bValue && !dValue) ||
-                (!bValue && !cValue && dValue) ||
-                (!aValue && !bValue && !cValue) ||
-                (aValue && cValue && !dValue);
-        System.out.printf("Your output is: %b", output);
+        System.out.println("Your output is: " + ((b && !d) || (!b && !c && d) || (!a && !b && !c) || (a && c && !d)));
     }
 }
