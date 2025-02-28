@@ -1,5 +1,3 @@
-package Homework.Week4;
-
 import java.util.Scanner;
 
 public class PiApproximation {
