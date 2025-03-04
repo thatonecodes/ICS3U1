@@ -1,3 +1,5 @@
+package Assignments.PolynomialEvaluatorAssignment;
+
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -5,32 +7,57 @@ public class PolynomialEvaluator {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\nPlease input a polynomial in the form of ");
-        String polynomial = scanner.nextLine();
+        System.out.println("Enter a polynomial in the form f(x)=3x^3 -5x^2 +1x^4 +9x^6 +3.1x^1 +2: ");
+        String polynomial = scanner.nextLine().replace("f(x)=", "").replaceAll("\\s+", ""); // Remove 'f(x)=' and spaces
 
         System.out.println("Enter an x value: ");
-        double userInput = scanner.nextDouble();
+
+        if (!scanner.hasNextDouble()){
+            System.out.println("Invalid x value!");
+            System.exit(1);
+        } 
+        double x = scanner.nextDouble();
         scanner.close();
 
-        StringTokenizer tokenizer = new StringTokenizer(polynomial);
-        int sum = 0;
-        while (tokenizer.hasMoreTokens()) {
-            String token = tokenizer.nextToken();
-            char firstChar = token.charAt(0);
-            char xToken = 'x';
-            if (firstChar == 'f') { //it must be the first token
-                String mainString = token.substring(4);    
-                sum += Character.getNumericValue(mainString.charAt(0)) * Math.pow(userInput, Character.getNumericValue(mainString.charAt(3)));
-            }else if (!token.contains("x")) {
-                Double.parseDouble(token.charAt(1));
-            }
-            else if (firstChar == '+'){
-                Double.parseDouble(token.substring(1, token.indexOf(xToken)));
-            }else if (firstChar == '-'){
+        //true to RETURN THE DELIMITERS FROM TOKEN
+        //see: https://docs.oracle.com/javase/8/docs/api/java/util/StringTokenizer.html#StringTokenizer-java.lang.String-java.lang.String-boolean-
+        StringTokenizer tokenizer = new StringTokenizer(polynomial, "+-", true); 
+        double result = 0;
+        String sign = "+";
 
-            }else {
-                System.err.println("The string is NOT f(x)=...");
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken().trim(); //trim any whitespace
+            
+            if (token.equals("+") || token.equals("-")) {
+                sign = token; //now loop through and see if token is ONE of the signs, set it to the global sign
+                continue;
             }
+
+            double coefficient = 1.0;
+            double exponent = 0.0;
+
+            if (token.contains("x")) {
+                int xIndex = token.indexOf("x");
+                if (xIndex > 0) { 
+                    coefficient = Double.parseDouble(token.substring(0, xIndex));
+                }
+
+                if (token.contains("^")) {
+                    exponent = Double.parseDouble(token.substring(token.indexOf("^") + 1));
+                } else {
+                    exponent = 1.0; 
+                }
+            } else {
+                coefficient = Double.parseDouble(token);
+                exponent = 0.0;
+            }
+
+            if (sign.equals("-")) {
+                coefficient = -coefficient;
+            }
+
+            result += coefficient * Math.pow(x, exponent);
         }
+        System.out.printf("f(%.1f) = %.2f%n", x, result); //do %n to remove % cursor
     }
 }
