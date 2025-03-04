@@ -4,19 +4,21 @@ public class ArrayTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String[] array = new String[10];
-        boolean running = true;
 
-        while (running) {
+        running: while (true) {
             // Display menu
             System.out.println("\nMenu:");
-            System.out.println("1. Enter 10 Strings");
+            System.out.println("1. Enter 1 Strings");
             System.out.println("2. Display all Strings");
             System.out.println("3. Display a specific String");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
-            
+            if (!scanner.hasNextInt()){
+                System.err.println("Invalid input!");
+                System.exit(1);
+            }
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); // use this to consume new line
 
             switch (choice) {
                 case 1:
@@ -43,8 +45,7 @@ public class ArrayTest {
                     break;
                 case 4:
                     System.out.println("Exiting program...");
-                    running = false;
-                    break;
+                    break running;
                 default:
                     System.out.println("Invalid choice. Please enter a number between 1 and 4.");
             }
