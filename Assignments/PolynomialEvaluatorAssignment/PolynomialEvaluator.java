@@ -39,16 +39,31 @@ public class PolynomialEvaluator {
             if (token.contains("x")) {
                 int xIndex = token.indexOf("x");
                 if (xIndex > 0) { 
-                    coefficient = Double.parseDouble(token.substring(0, xIndex));
+                    try {
+                        coefficient = Double.parseDouble(token.substring(0, xIndex));
+                    } catch (NumberFormatException e) {
+                        System.err.println("You cannot provide a letter as a coefficient! (coeff. parsing err)");
+                        System.exit(1);
+                    }
                 }
 
                 if (token.contains("^")) {
-                    exponent = Double.parseDouble(token.substring(token.indexOf("^") + 1));
+                    try {
+                        exponent = Double.parseDouble(token.substring(token.indexOf("^") + 1));
+                    } catch (NumberFormatException e) {
+                        System.err.println("You cannot provide a letter as an exponent! (exponent parsing err)");
+                        System.exit(1);
+                    }
                 } else {
                     exponent = 1.0; 
                 }
             } else {
-                coefficient = Double.parseDouble(token);
+                try {
+                    coefficient = Double.parseDouble(token);
+                } catch (NumberFormatException e) {
+                    System.err.println("You cannot provide a letter as a coefficient! (coeff. parsing err)");
+                    System.exit(1);
+                }
                 exponent = 0.0;
             }
 
