@@ -2,35 +2,35 @@ package Assignments.AmbigousCaseAssignment;
 
 import java.util.Scanner;
 
-public class AmbigousCase {
+public class AmbiguousCase {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nEnter the angle A (in degrees): ");
-        double angleA = scanner.nextDouble();
+        double angle = scanner.nextDouble();
 
         System.out.println("Enter the length of side a: ");
-        double sideA = scanner.nextDouble();
+        double a = scanner.nextDouble();
 
         System.out.println("Enter the length of side b: ");
-        double sideB = scanner.nextDouble();
+        double b = scanner.nextDouble();
         scanner.close();
 
 
-        double height = sideA * Math.sin(Math.toRadians(angleA));
+        double h = a * Math.sin(Math.toRadians(angle));
 
-        if (angleA <= 90){
-            if (sideA > height && sideA > sideB) {
+        if (angle <= 90){
+            if (a < h && a > b) {
                 System.out.println("No solution (triangle cannot exist).");
-            } else if (sideA > sideB){
+            } else if (a > b){
                 System.out.println("There is one possible triangle (obtuse).");
-            }else if (sideB == height) {
+            }else if (b == h) {
                 System.out.println("Right triangle.");
             } else {
                 System.out.println("There are two possible triangles (ambigous case).");
             }
         }else{
-            if (sideA > sideB){
+            if (a > b){
                 System.out.println("One possible triangle.");
             }else{
                 System.out.println("There are two possible triangles.");
