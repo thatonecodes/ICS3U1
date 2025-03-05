@@ -1,15 +1,13 @@
-package Homework.Week4;
-
 import java.util.Scanner;
 
 public class PolynomialFunction {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("\nInput the coeffecients of the polynomial seperated by a space: ");
+        System.out.print("\n\nInput the coeffecients of the polynomial seperated by a space: ");
         String coeffecientInput = scanner.nextLine();
         String[] coeffes = coeffecientInput.split(" ");
 
-        System.out.println("Input the degrees of the polynomial seperated by a space: ");
+        System.out.print("\nInput the degrees of the polynomial seperated by a space: ");
         String degreesInput = scanner.nextLine();
         String[] degreesArr = degreesInput.split(" ");
 
@@ -21,10 +19,9 @@ public class PolynomialFunction {
         String poly = "";
         for (int i = 0; i < degreesArr.length; i++) {
             sum += Double.parseDouble(coeffes[i]) * Math.pow(x, Double.parseDouble(degreesArr[i]));
-            //TODO make a ternary operator for coeffes to check if neg or pos.
-            poly += coeffes[i] + "x^" + degreesArr[i] + " +";
+            poly += (coeffes[i].contains("-")) ? coeffes[i] + "x^" + degreesArr[i] + "-" : coeffes[i] + "x^" + degreesArr[i] + "+";
         }
-        System.out.println("The polynomial is: " + poly);
-        System.out.println("Your answer is " + sum);
+        System.out.println("The polynomial is: f(x) = " + poly.substring(0, poly.length() - 1));
+        System.out.println("Your answer is f(x) = " + sum);
     }
 }
