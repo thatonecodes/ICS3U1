@@ -27,7 +27,7 @@ public class AmbiguousCase {
             }else if (b == h) {
                 System.out.println("Right triangle.");
             } else {
-                System.out.println("There are two possible triangles (ambigous case).");
+                System.out.println("There are two possible triangles (ambiguous case).");
             }
         }else{
             if (a > b){
