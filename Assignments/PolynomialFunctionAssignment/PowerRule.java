@@ -19,14 +19,35 @@ public class PowerRule {
 
         String deriv1 = "";
         for (int i = 0; i < coeffes.length; i++) {
-            double coeff = Double.parseDouble(coeffes[i]);
-            deriv1 += " " + String.valueOf(coeff * Double.parseDouble(degreesArr[i])) + "x^" + String.valueOf(Double.parseDouble(degreesArr[i]) - 1);
-            if (coeff < 0 ){
-                deriv1 += " -";
-            } else{
-                deriv1 += " +";
+            double coeffValue = Double.parseDouble(coeffes[i]) * Double.parseDouble(degreesArr[i]);
+            int pow = Integer.parseInt(degreesArr[i]) - 1;
+
+            if (coeffValue == 0) continue; 
+
+            if (!deriv1.isEmpty()) {
+                deriv1 += (coeffValue < 0 ? " - " : " + ");
+            } else if (coeffValue < 0) {
+                deriv1 += "-";
             }
+            deriv1 += Math.abs(coeffValue) + "x^" + pow;
+            degreesArr[i] = String.valueOf(pow);
+            coeffes[i] = String.valueOf(coeffValue);
         }
-        System.out.println(deriv1);
+        String deriv2 = "";
+        for (int i = 0; i < coeffes.length; i++) {
+            double coeffValue = Double.parseDouble(coeffes[i]) * Double.parseDouble(degreesArr[i]);
+            int pow = Integer.parseInt(degreesArr[i]) - 1;
+
+            if (coeffValue == 0) continue; 
+
+            if (!deriv2.isEmpty()) {
+                deriv2 += (coeffValue < 0 ? " - " : " + ");
+            } else if (coeffValue < 0) {
+                deriv2 += "-";
+            }
+            deriv2 += Math.abs(coeffValue) + "x^" + pow;
+        }
+        System.out.println("The derivative of the function you entered is: " + deriv1.replace("x^0", ""));
+        System.out.println("The 2nd derivative of the function you entered is: " + deriv2.replace("x^0", ""));
     }
 }
