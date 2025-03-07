@@ -19,6 +19,6 @@ public class BooleanTest {
         boolean d = scanner.nextBoolean();
         scanner.close();
 
-        System.out.println("Your output is: " + ((b && !d) || (!b && !c && d) || (!a && !b && !c) || (a && c && !d)));
+        System.out.println("Your output is: " + (b && !d || !b && !c && d || !a && !b && !c || a && c && !d));
     }
 }
