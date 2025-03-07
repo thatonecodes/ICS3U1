@@ -29,7 +29,7 @@ public class AmbiguousCase {
             } else {
                 System.out.println("There are two possible triangles (ambiguous case).");
             }
-        }else {
+        } else {
             if (a > b) {
                 System.out.println("One possible triangle.");
             } else {
