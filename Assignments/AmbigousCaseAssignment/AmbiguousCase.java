@@ -16,7 +16,6 @@ public class AmbiguousCase {
         double b = scanner.nextDouble();
         scanner.close();
 
-
         double h = b * Math.sin(Math.toRadians(angle));
 
         if (angle <= 90) {
