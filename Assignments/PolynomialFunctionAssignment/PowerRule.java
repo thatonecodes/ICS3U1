@@ -1,53 +1,50 @@
 package Assignments.PolynomialFunctionAssignment;
 import java.util.Scanner;
 
-
 public class PowerRule {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("\n\nInput the coeffecients of the polynomial seperated by a space: ");
-        String[] coeffes = scanner.nextLine().split(" ");
-
-        System.out.print("\nInput the degrees of the polynomial seperated by a space: ");
-        String[] degreesArr = scanner.nextLine().split(" ");
+        System.out.print("\n\nInput coefficients: ");
+        String[] coeffs = scanner.nextLine().split(" ");
+        System.out.print("\nInput degrees: ");
+        String[] degrees = scanner.nextLine().split(" ");
         scanner.close();
-
-        if (coeffes.length != degreesArr.length){
-            System.out.println("The amount of coeffecicients and degrees are not the same.");
+        
+        if (coeffs.length != degrees.length) {
+            System.out.println("Error: Mismatched coefficients and degrees. (no_same_length)");
             System.exit(1);
         }
-
+        
         String deriv1 = "";
-        for (int i = 0; i < coeffes.length; i++) {
-            double coeffValue = Double.parseDouble(coeffes[i]) * Double.parseDouble(degreesArr[i]);
-            int pow = Integer.parseInt(degreesArr[i]) - 1;
-
-            if (coeffValue == 0) continue; 
-
-            if (!deriv1.isEmpty()) {
-                deriv1 += (coeffValue < 0 ? " - " : " + ");
-            } else if (coeffValue < 0) {
-                deriv1 += "-";
-            }
-            deriv1 += Math.abs(coeffValue) + "x^" + pow;
-            degreesArr[i] = String.valueOf(pow);
-            coeffes[i] = String.valueOf(coeffValue);
-        }
         String deriv2 = "";
-        for (int i = 0; i < coeffes.length; i++) {
-            double coeffValue = Double.parseDouble(coeffes[i]) * Double.parseDouble(degreesArr[i]);
-            int pow = Integer.parseInt(degreesArr[i]) - 1;
-
-            if (coeffValue == 0) continue; 
-
-            if (!deriv2.isEmpty()) {
-                deriv2 += (coeffValue < 0 ? " - " : " + ");
-            } else if (coeffValue < 0) {
-                deriv2 += "-";
+        
+        for (int i = 0; i < coeffs.length; i++) {
+            int degree = Integer.parseInt(degrees[i]);
+            if (degree == 0) continue;
+            
+            double coeff = Double.parseDouble(coeffs[i]);
+            double c1 = coeff * degree;
+            
+            // First derivative
+            String sign1 = c1 < 0 ? " - " : deriv1.isEmpty() ? "" : " + ";
+            if (c1 != 0) {
+                deriv1 += sign1 + Math.abs(c1);
+                if (degree > 1) deriv1 += "x" + (degree > 2 ? "^" + (degree - 1) : "");
+                else if (degree == 1) deriv1 += "";
             }
-            deriv2 += Math.abs(coeffValue) + "x^" + pow;
+            
+            // Second derivative
+            if (degree > 1) {
+                double c2 = c1 * (degree - 1);
+                String sign2 = c2 < 0 ? " - " : deriv2.isEmpty() ? "" : " + ";
+                if (c2 != 0) {
+                    deriv2 += sign2 + Math.abs(c2);
+                    if (degree > 2) deriv2 += "x" + (degree > 3 ? "^" + (degree - 2) : "");
+                }
+            }
         }
-        System.out.println("The derivative of the function you entered is: " + deriv1.replace("x^0", ""));
-        System.out.println("The 2nd derivative of the function you entered is: " + deriv2.replace("x^0", ""));
+        
+        System.out.println("First derivative: " + (deriv1.isEmpty() ? "0" : deriv1));
+        System.out.println("Second derivative: " + (deriv2.isEmpty() ? "0" : deriv2));
     }
 }
