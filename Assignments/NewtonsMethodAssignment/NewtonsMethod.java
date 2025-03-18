@@ -30,8 +30,8 @@ public class NewtonsMethod {
 
                 System.out.println("Your next root is: " + root);
             }
-            System.out.println("\nApproximated Root is: " + root);
-            System.out.println("Would you like to try again?(y/n) ");
+            System.out.println("\nApproximated root is: " + root);
+            System.out.println("Would you like to try again? (y/n)");
 
             if (scanner.next().toLowerCase().charAt(0) == 'n') {
                 scanner.close();
