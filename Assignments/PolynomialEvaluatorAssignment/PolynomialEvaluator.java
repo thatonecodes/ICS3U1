@@ -1,4 +1,4 @@
-package Assignments.PolynomialEvaluatorAssignment;
+package PolynomialEvaluatorAssignment;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 

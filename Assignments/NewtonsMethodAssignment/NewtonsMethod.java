@@ -1,3 +1,5 @@
+package NewtonsMethodAssignment;
+
 import java.util.Scanner;
 
 public class NewtonsMethod {

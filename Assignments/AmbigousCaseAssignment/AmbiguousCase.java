@@ -1,4 +1,4 @@
-package Assignments.AmbigousCaseAssignment;
+package AmbigousCaseAssignment;
 
 import java.util.Scanner;
 

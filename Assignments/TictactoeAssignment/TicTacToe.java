@@ -1,4 +1,4 @@
-package Assignments.TictactoeAssignment;
+package TictactoeAssignment;
 
 public class TicTacToe {
     public static void main(String[] args) {

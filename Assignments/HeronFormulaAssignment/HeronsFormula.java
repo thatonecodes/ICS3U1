@@ -1,4 +1,4 @@
-package Assignments.HeronFormulaAssignment;
+package HeronFormulaAssignment;
 
 import java.util.Scanner;
 

@@ -14,21 +14,21 @@ public class Toolbar extends JPanel {
 
     public Toolbar(ImageModel model, ImagePanel panel) {
         JButton invertButton = new JButton("Invert");
-        invertButton.addActionListener(e -> {
+        invertButton.addActionListener(_ -> {
             BufferedImage inverted = InvertFilter.apply(model.getImage());
             model.setImage(inverted);
             panel.repaint();
         });
 
         JButton blurButton = new JButton("Blur");
-        blurButton.addActionListener(e -> {
+        blurButton.addActionListener(_ -> {
             BufferedImage blurred = GaussianBlurFilter.apply(model.getImage());
             model.setImage(blurred);
             panel.repaint();
         });
 
         JButton grayScaleButton = new JButton("GrayScale");
-        grayScaleButton.addActionListener(e -> {
+        grayScaleButton.addActionListener(_ -> {
             BufferedImage grayScaled = GrayscaleFilter.apply(model.getImage());
             model.setImage(grayScaled);
             panel.repaint();

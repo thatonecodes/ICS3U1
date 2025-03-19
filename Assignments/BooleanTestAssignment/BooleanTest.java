@@ -1,4 +1,4 @@
-package Assignments.BooleanTestAssignment;
+package BooleanTestAssignment;
 
 import java.util.Scanner;
 

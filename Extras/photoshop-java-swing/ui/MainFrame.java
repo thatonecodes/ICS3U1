@@ -37,11 +37,11 @@ public class MainFrame extends JFrame {
         JMenuItem undoItem = new JMenuItem("Undo");
         JMenuItem redoItem = new JMenuItem("Redo");
 
-        openItem.addActionListener(e -> openImage());
-        saveItem.addActionListener(e -> saveImage());
+        openItem.addActionListener(_ -> openImage());
+        saveItem.addActionListener(_ -> saveImage());
 
-        redoItem.addActionListener(e -> model.redo());
-        undoItem.addActionListener(e -> model.undo());
+        redoItem.addActionListener(_ -> model.redo());
+        undoItem.addActionListener(_ -> model.undo());
 
         fileMenu.add(openItem);
         fileMenu.add(saveItem);

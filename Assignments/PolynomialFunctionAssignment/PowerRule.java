@@ -1,4 +1,4 @@
-package Assignments.PolynomialFunctionAssignment;
+package PolynomialFunctionAssignment;
 import java.util.Scanner;
 
 public class PowerRule {
