@@ -17,11 +17,7 @@ public class NewtonsMethod {
                 double rootPow3 = rootPow2 * root;
 
                 // Newton's method
-                root -= (6 * rootPow3 * root -
-                        13 * rootPow3 -
-                        18 * rootPow2 +
-                        7 * root +
-                        6) /
+                root -= (6 * rootPow3 * root - 13 * rootPow3 - 18 * rootPow2 + 7 * root + 6) /
                         (24 * rootPow3 - 39 * rootPow2 - 36 * root + 7);
 
                 if (Math.abs(root - prevRoot) < 0.000000000000001) {
