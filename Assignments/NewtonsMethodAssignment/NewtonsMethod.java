@@ -10,7 +10,7 @@ public class NewtonsMethod {
             double root = scanner.nextDouble();
             double prevRoot = 0.0;
 
-            while (true) {
+            do {
                 prevRoot = root;
 
                 double rootPow2 = Math.pow(root, 2);
@@ -20,12 +20,10 @@ public class NewtonsMethod {
                 root -= (6 * rootPow3 * root - 13 * rootPow3 - 18 * rootPow2 + 7 * root + 6) /
                         (24 * rootPow3 - 39 * rootPow2 - 36 * root + 7);
 
-                if (Math.abs(root - prevRoot) < 0.000000000000001) {
-                    break;
-                }
-
                 System.out.println("Your next root is: " + root);
-            }
+
+            } while(Math.abs(root - prevRoot) > 0.000000000000001); 
+
             System.out.println("\nApproximated root is: " + root);
             System.out.println("Would you like to try again? (y/n)");
 
