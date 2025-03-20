@@ -10,13 +10,12 @@ The directory structure contains files that contain packages of homework organiz
 It also includes the culminating project, which is built as Javafx Maven project.
 
 If running the code inside the ICS3U1 folder, your `.vscode/settings.json` file should look something like this:
-```java
+```json
 {
     "java.project.sourcePaths": [
         "Homework",
-        "Extras/java-design-patterns",
+        //"Extras/java-design-patterns",
         "Assignments",
-        "Extras/photoshop-java-swing"
     ]
 }
 ```
