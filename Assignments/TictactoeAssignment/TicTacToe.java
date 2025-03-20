@@ -6,14 +6,17 @@ import java.util.Scanner;
 public class TicTacToe {
     public static final int GRID_COLUMNS = 3;
     public static final int GRID_ROWS = 3;
+    public static final String X_SYMBOL = "  X  "; //spaces for formatting
+    public static final String O_SYMBOL = "  O  ";
 
     public static void displayGrid(String[][] grid) {
         System.out.println("The current grid is:\n");
+        System.out.println("----------------"); 
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) {
-                System.out.print(grid[i][j] == null ? "#" : grid[i][j]);
+                System.out.print(grid[i][j] == null ? "  #  " : grid[i][j]);
             }
-            System.out.println(); // newline
+            System.out.println("\n----------------"); // newline
         }
         System.out.println();
     }
@@ -26,9 +29,9 @@ public class TicTacToe {
         if (grid[choice[0]][choice[1]] == null) {
             // add "X" or "O" depending on the current player
             if (currentPlayer.equals("Player1")) {
-                grid[choice[0]][choice[1]] = "X";
+                grid[choice[0]][choice[1]] = X_SYMBOL;
             } else {
-                grid[choice[0]][choice[1]] = "O";
+                grid[choice[0]][choice[1]] = O_SYMBOL;
             }
             return true;
         } else {
@@ -39,7 +42,7 @@ public class TicTacToe {
     }
 
     public static boolean checkWin(String[][] grid, String currentPlayer) {
-        String symbol = currentPlayer.equals("Player1") ? "X" : "O";
+        String symbol = currentPlayer.equals("Player1") ? X_SYMBOL : O_SYMBOL;
 
         for (int i = 0; i < GRID_ROWS; i++) {
             if (grid[i][0] == symbol && grid[i][1] == symbol && grid[i][2] == symbol) {
@@ -115,9 +118,11 @@ public class TicTacToe {
             int[] choice = getUserInput(currentPlayer, scanner, grid);
             if (addCharacter(currentPlayer, grid, choice)) {
                 if (checkWin(grid, currentPlayer)) {
+                    displayGrid(grid);
                     System.out.printf("Hooray! %s has won the game!%n", currentPlayer);
                     break;
                 } else if (checkTie(grid)) {
+                    displayGrid(grid);
                     System.out.println("All spots are filled with no winner! It's a tie!");
                     break;
                 }
