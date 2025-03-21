@@ -36,7 +36,7 @@ public class TicTacToe {
             return true;
         } else {
             System.out.printf("\nInvalid input, there is %s's symbol at this spot!\n\n",
-                    grid[choice[0]][choice[1]].equals("X") ? "Player1" : "Player2");
+                    grid[choice[0]][choice[1]].equals(X_SYMBOL) ? "Player1" : "Player2");
             return false;
         }
     }
@@ -102,17 +102,20 @@ public class TicTacToe {
         return choices;
     }
 
+    public static void printInfo() {
+        System.out.println("\nWelcome to a new game of tictactoe!\n");
+        System.out.println("The game will cycle players, starting from player1 to player2, then back to player1, etc.");
+        System.out.println("\nPlayer 1 will be 'X' and player 2 is 'O'.");
+        System.out.println("\nThe board numbering will be as such:");
+        System.out.println("0 1 2\n" + "1\n" + "2\n");
+        System.out.println("\nThe '#' symbol represents an unused spot.\n");
+    }
+
     public static void main(String[] args) {
         String[][] grid = new String[GRID_COLUMNS][GRID_ROWS];
         String currentPlayer = "Player1";
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nWelcome to a new game of tictactoe!\n");
-        System.out.println("The game will cycle players, starting from player1 to player2, then back to player1, etc.");
-        System.out.println("\nPlayer 1 will be 'X' and player 2 is 'O'.");
-        String boardNumbers = "0 1 2\n" + "1\n" + "2\n";
-        System.out.println("\nThe board numbering will be as such:");
-        System.out.println(boardNumbers);
-        System.out.println("\nThe '#' symbol represents an unused spot.\n");
+        printInfo();
         while (true) {
             displayGrid(grid);
             int[] choice = getUserInput(currentPlayer, scanner, grid);
