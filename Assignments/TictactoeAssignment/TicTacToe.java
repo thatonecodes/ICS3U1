@@ -6,15 +6,43 @@ import java.util.Scanner;
 public class TicTacToe {
     public static final int GRID_COLUMNS = 3;
     public static final int GRID_ROWS = 3;
-    public static final String X_SYMBOL = "  X  "; //spaces for formatting
+    public static final String X_SYMBOL = "  X  "; // spaces for formatting
     public static final String O_SYMBOL = "  O  ";
+
+    public static String addColourToString(String returnString, String colour) {
+        final String RESET = "\u001B[0m"; // ansi escape codes for colours
+        final String RED = "\u001B[31m";
+        final String GREEN = "\u001B[32m";
+        final String YELLOW = "\u001B[33m";
+        final String BLUE = "\u001B[34m";
+        switch (colour.toLowerCase()) {
+            case "red":
+                return RED + returnString + RESET;
+            case "green":
+                return GREEN + returnString + RESET;
+            case "yellow":
+                return YELLOW + returnString + RESET;
+            case "blue":
+                return BLUE + returnString + RESET;
+            default:
+                return returnString;
+        }
+    }
 
     public static void displayGrid(String[][] grid) {
         System.out.println("The current grid is:\n");
-        System.out.println("----------------"); 
+        System.out.println("----------------");
         for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid.length; j++) {
-                System.out.print(grid[i][j] == null ? "  #  " : grid[i][j]);
+            for (int j = 0; j < grid.length; j++) { 
+                String cell;
+                if (grid[i][j] == null) {
+                    cell = addColourToString("  #  ", "blue"); // placeholder in blue
+                } else if (grid[i][j].equals(X_SYMBOL)) {
+                    cell = addColourToString(grid[i][j], "yellow"); // X in yellow
+                } else {
+                    cell = addColourToString(grid[i][j], "red"); // O in red
+                }
+                System.out.print(cell);
             }
             System.out.println("\n----------------"); // newline
         }
@@ -66,7 +94,7 @@ public class TicTacToe {
         for (int i = 0; i < GRID_ROWS; i++) {
             for (int j = 0; j < GRID_COLUMNS; j++) {
                 if (grid[i][j] == null) {
-                    return false; // only tie when no empty spots left 
+                    return false; // only tie when no empty spots left
                 }
             }
         }
@@ -103,12 +131,13 @@ public class TicTacToe {
     }
 
     public static void printInfo() {
-        System.out.println("\nWelcome to a new game of tictactoe!\n");
+        System.out.println(addColourToString("\nWelcome to a new game of tictactoe!\n", "green"));
         System.out.println("The game will cycle players, starting from player1 to player2, then back to player1, etc.");
-        System.out.println("\nPlayer 1 will be 'X' and player 2 is 'O'.");
+        System.out.printf("\nPlayer 1 will be %s and player 2 is %s.", addColourToString("X", "yellow"),
+                addColourToString("O", "red"));
         System.out.println("\nThe board numbering will be as such:");
         System.out.println("0 1 2\n" + "1\n" + "2\n");
-        System.out.println("\nThe '#' symbol represents an unused spot.\n");
+        System.out.println(addColourToString("\nThe '#' symbol represents an unused spot.\n", "blue"));
     }
 
     public static void main(String[] args) {
@@ -122,11 +151,12 @@ public class TicTacToe {
             if (addCharacter(currentPlayer, grid, choice)) {
                 if (checkWin(grid, currentPlayer)) {
                     displayGrid(grid);
-                    System.out.printf("Hooray! %s has won the game!%n", currentPlayer);
+                    System.out.println(
+                            addColourToString(String.format("Hooray! %s has won the game!", currentPlayer), "yellow"));
                     break;
                 } else if (checkTie(grid)) {
                     displayGrid(grid);
-                    System.out.println("All spots are filled with no winner! It's a tie!");
+                    System.out.println(addColourToString("All spots are filled with no winner! It's a tie!", "red"));
                     break;
                 }
                 currentPlayer = switchPlayer(currentPlayer);
