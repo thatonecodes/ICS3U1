@@ -30,7 +30,7 @@ public class TicTacToe {
     }
 
     public static void displayGrid(String[][] grid) {
-        System.out.println("The current grid is:\n");
+        System.out.println("\nThe current grid is:\n");
         System.out.println("----------------");
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid.length; j++) { 
@@ -104,11 +104,11 @@ public class TicTacToe {
     public static int[] getUserInput(String currentPlayer, Scanner scanner, String[][] grid) {
         int[] choices = new int[2]; // the array stores the column and the row (2 options)
 
-        System.out.printf("%s, please enter a row index (0-%d): ", currentPlayer, grid.length - 1);
         try {
+            System.out.printf("%s, please enter a row index (0-%d): ", currentPlayer, grid.length - 1);
             int row = scanner.nextInt();
             if (row < 0 || row >= grid.length) {
-                System.out.printf("Input must be a positive integer less than %d!\n", grid.length);
+                System.out.printf("Input must be a positive integer less than %d!!!", grid.length);
                 return getUserInput(currentPlayer, scanner, grid);
             }
             choices[0] = row;
@@ -116,13 +116,13 @@ public class TicTacToe {
             System.out.printf("%s, please enter a column index (0-%d): ", currentPlayer, grid[row].length - 1);
             int column = scanner.nextInt();
             if (column < 0 || column >= grid[row].length) {
-                System.out.printf("Input must be a positive integer less than %d!\n", grid[row].length);
+                System.out.printf("Input must be a positive integer less than %d!!!", grid[row].length);
                 return getUserInput(currentPlayer, scanner, grid);
             }
             choices[1] = column;
 
         } catch (InputMismatchException e) {
-            System.out.println("You can only input valid integers!");
+            System.out.println("You can only input valid integers!!!");
             scanner.next(); // consume the invalid input
             return getUserInput(currentPlayer, scanner, grid);
         }
@@ -137,7 +137,7 @@ public class TicTacToe {
                 addColourToString("O", "red"));
         System.out.println("\nThe board numbering will be as such:");
         System.out.println("0 1 2\n" + "1\n" + "2\n");
-        System.out.println(addColourToString("\nThe '#' symbol represents an unused spot.\n", "blue"));
+        System.out.println(addColourToString("\nThe '#' symbol represents an unused spot.", "blue"));
     }
 
     public static void main(String[] args) {
@@ -145,7 +145,7 @@ public class TicTacToe {
         String currentPlayer = "Player1";
         Scanner scanner = new Scanner(System.in);
         printInfo();
-        while (true) {
+        while (true) { //main loop
             displayGrid(grid);
             int[] choice = getUserInput(currentPlayer, scanner, grid);
             if (addCharacter(currentPlayer, grid, choice)) {
