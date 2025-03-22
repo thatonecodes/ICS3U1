@@ -23,24 +23,17 @@ public class PolynomialEvaluator {
 
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
-
             if (token.equals("+") || token.equals("-")) {
                 sign = token;
-                continue;
-            }
-
-            double coeff = 1.0;
-            double exp = 0.0;
-
-            int xIndex = token.indexOf("x");
-            if (xIndex != -1) {
-                coeff = xIndex > 0 ? Double.parseDouble(token.substring(0, xIndex)) : 1.0;
-                exp = token.contains("^") ? Double.parseDouble(token.substring(token.indexOf("^") + 1)) : 1.0;
             } else {
-                coeff = Double.parseDouble(token);
+                int xIndex = token.indexOf("x"); // indexOf returns -1 if null
+                double coeff = (xIndex != -1) ? (xIndex > 0 ? Double.parseDouble(token.substring(0, xIndex)) : 1.0)
+                        : Double.parseDouble(token);
+                double exp = (xIndex != -1)
+                        ? (token.contains("^") ? Double.parseDouble(token.substring(token.indexOf("^") + 1)) : 1.0)
+                        : 0.0;
+                result += (sign.equals("-") ? -coeff : coeff) * Math.pow(x, exp);
             }
-
-            result += (sign.equals("-") ? -coeff : coeff) * Math.pow(x, exp);
         }
         System.out.printf("f(%.1f) = %.2f%n", x, result); // do %n to remove % cursor
     }
