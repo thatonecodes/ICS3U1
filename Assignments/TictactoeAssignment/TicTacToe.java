@@ -62,7 +62,7 @@ public class TicTacToe {
     }
 
     public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) {
-        //returns a true or false value depending on if it successfuly added character
+        // returns a true or false value depending on if it successfuly added character
         try {
             if (grid[choice[0]][choice[1]] == null) {
                 // add "X" or "O" depending on the current player
@@ -134,20 +134,23 @@ public class TicTacToe {
     public static void printInfo() {
         String plyr1 = addColourToString(PLAYER1_NAME, PLAYER1_COLOUR);
         String plyr2 = addColourToString(PLAYER2_NAME, PLAYER2_COLOUR);
+        String ticTacToeString = addColourToString("tictactoe", "rainbow");
         System.out.println(
-                addColourToString("\nWelcome to a new game of " + addColourToString("tictactoe", "rainbow") + "!\n",
+                addColourToString("\nWelcome to a new game of " + ticTacToeString + "!\n",
                         "green"));
-        System.out.printf("The game cycles between %s (%s) and %s (%s).\n",
+        System.out.printf("This %s game cycles between %s (%s) and %s (%s).\n",
+                ticTacToeString,
                 plyr1, addColourToString("X", "yellow"),
                 plyr2, addColourToString("O", "red"));
-        System.out.println("Board numbering:\n0 1 2\n1\n2\n");
+        System.out.println("Board numbering:\n1 2 3\n2\n3\n");
         System.out.println(addColourToString("'#' represents an unused spot.", "blue"));
     }
 
     public static void printResult(String[][] grid, String currentPlayer) {
         if (checkWin(grid, currentPlayer)) {
-            System.out.println(addColourToString(
-                    String.format("Hooray! The winner is: %s", addColourToName(currentPlayer)), "green"));
+            System.out.println(
+                    addColourToString(String.format("Hooray! The winner is: %s", addColourToName(currentPlayer)),
+                            "green"));
         } else {
             System.out.println(addColourToString("All spots are filled with no winner! It's a tie!", "red"));
         }
