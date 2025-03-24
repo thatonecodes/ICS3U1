@@ -11,7 +11,8 @@ public class PolynomialEvaluator {
         // Using StringTokenizer to split by "+/-" while keeping delimiters
         // Docs:
         // https://docs.oracle.com/javase/8/docs/api/java/util/StringTokenizer.html#StringTokenizer-java.lang.String-java.lang.String-boolean-
-        StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine().replace("f(x)=", "").replaceAll("\\s+", ""),
+        StringTokenizer tokenizer = new StringTokenizer(scanner.nextLine()
+            .replace("f(x)=", "").replaceAll("\\s+", ""),
                 "+-", true);
 
         System.out.println("Enter an x value: ");
