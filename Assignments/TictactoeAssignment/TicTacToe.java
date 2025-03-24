@@ -43,9 +43,13 @@ public class TicTacToe {
         System.out.println("\nThe current grid is:\n" + seperator);
         for (int i = 0; i < GRID_ROWS; i++) {
             for (int j = 0; j < GRID_COLUMNS; j++) {
-                System.out.print((grid[i][j] == null) ? addColourToString("  #  ", "blue")
-                        : grid[i][j].equals(X_SYMBOL) ? addColourToString(grid[i][j], "yellow")
-                                : addColourToString(grid[i][j], "red"));
+                if (grid[i][j] == null) { //add placeholder if null
+                    System.out.print(addColourToString("  #  ", "blue"));
+                } else if (grid[i][j].equals(X_SYMBOL)) { //x symbol
+                    System.out.print(addColourToString(grid[i][j], "yellow"));
+                } else { //add O symbol red
+                    System.out.print(addColourToString(grid[i][j], "red"));
+                }
             }
             System.out.println(seperator);
         }
@@ -126,7 +130,7 @@ public class TicTacToe {
                 System.out.println("Invalid input! Enter numbers within range!");
             } catch (InputMismatchException e) {
                 System.out.println("You can only input valid integers!");
-                scanner.next(); // consume invalid input
+                scanner.nextLine(); // consume invalid input
             }
         }
     }
