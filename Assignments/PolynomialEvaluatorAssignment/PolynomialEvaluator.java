@@ -29,9 +29,9 @@ public class PolynomialEvaluator {
                 int xIndex = token.indexOf("x"); // indexOf returns -1 if null
                 double coeff = (xIndex != -1) ? (xIndex > 0 ? Double.parseDouble(token.substring(0, xIndex)) : 1.0)
                         : Double.parseDouble(token);
-                double exp = (xIndex != -1)
-                        ? (token.contains("^") ? Double.parseDouble(token.substring(token.indexOf("^") + 1)) : 1.0)
-                        : 0.0;
+                int exp = (xIndex != -1)
+                        ? (token.contains("^") ? Integer.parseInt(token.substring(token.indexOf("^") + 1)) : 1)
+                        : 0;
                 result += (sign.equals("-") ? -coeff : coeff) * Math.pow(x, exp);
             }
         }
