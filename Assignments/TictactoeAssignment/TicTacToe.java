@@ -43,11 +43,11 @@ public class TicTacToe {
         System.out.println("\nThe current grid is:\n" + seperator);
         for (int i = 0; i < GRID_ROWS; i++) {
             for (int j = 0; j < GRID_COLUMNS; j++) {
-                if (grid[i][j] == null) { //add placeholder if null
+                if (grid[i][j] == null) { // add placeholder if null
                     System.out.print(addColourToString("  #  ", "blue"));
-                } else if (grid[i][j].equals(X_SYMBOL)) { //x symbol
+                } else if (grid[i][j].equals(X_SYMBOL)) { // x symbol
                     System.out.print(addColourToString(grid[i][j], "yellow"));
-                } else { //add O symbol red
+                } else { // add O symbol red
                     System.out.print(addColourToString(grid[i][j], "red"));
                 }
             }
@@ -144,8 +144,8 @@ public class TicTacToe {
                         "green"));
         System.out.printf("This %s game cycles between %s (%s) and %s (%s).\n",
                 ticTacToeString,
-                plyr1, addColourToString("X", "yellow"),
-                plyr2, addColourToString("O", "red"));
+                plyr1, addColourToString("X", PLAYER1_COLOUR),
+                plyr2, addColourToString("O", PLAYER2_COLOUR));
         System.out.println("Board numbering:\n1 2 3\n2\n3\n");
         System.out.println(addColourToString("'#' represents an unused spot.", "blue"));
     }
