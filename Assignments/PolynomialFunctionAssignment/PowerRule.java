@@ -19,6 +19,7 @@ public class PowerRule {
         String deriv1 = "";
         String deriv2 = "";
 
+        // O(n) time complexity
         for (int i = 0; i < coeffs.length; i++) {
             int degree = Integer.parseInt(degrees[i]);
             if (degree == 0) {
