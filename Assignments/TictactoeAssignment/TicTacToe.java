@@ -46,9 +46,9 @@ public class TicTacToe {
                 if (grid[i][j] == null) { // add placeholder if null
                     System.out.print(addColourToString("  #  ", "blue"));
                 } else if (grid[i][j].equals(X_SYMBOL)) { // x symbol
-                    System.out.print(addColourToString(grid[i][j], "yellow"));
+                    System.out.print(addColourToString(grid[i][j], PLAYER1_COLOUR));
                 } else { // add O symbol red
-                    System.out.print(addColourToString(grid[i][j], "red"));
+                    System.out.print(addColourToString(grid[i][j], PLAYER2_COLOUR));
                 }
             }
             System.out.println(seperator);
