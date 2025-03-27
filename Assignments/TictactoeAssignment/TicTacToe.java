@@ -117,12 +117,12 @@ public class TicTacToe {
             try {
                 // make it by 1 instead of 0 index
                 System.out.printf("%s, enter row index (1-%d): ", addColourToName(currentPlayer), GRID_ROWS);
-                int row = scanner.nextInt() - 1;
+                int row = scanner.nextInt() - 1; // 1-based to 0-based index
                 System.out.printf("%s, enter column index (1-%d): ", addColourToName(currentPlayer), GRID_COLUMNS);
                 int column = scanner.nextInt() - 1;
 
                 if (row >= 0 && row < GRID_ROWS && column >= 0 && column < GRID_COLUMNS) {
-                    choices[0] = row; // minus 1 index
+                    choices[0] = row;
                     choices[1] = column;
                     return choices;
                 }
@@ -146,7 +146,13 @@ public class TicTacToe {
                 ticTacToeString,
                 plyr1, addColourToString("X", PLAYER1_COLOUR),
                 plyr2, addColourToString("O", PLAYER2_COLOUR));
-        System.out.println("Board numbering:\n1 2 3\n2\n3\n");
+        System.out.println("\nBoard numbering:");
+        System.out.println("     1       2       3");
+        System.out.println("1|   #   |   #   |   #   |\n");
+        System.out.println("2|   #   |   #   |   #   |\n");
+        System.out.println("3|   #   |   #   | " + addColourToString(X_SYMBOL, PLAYER1_COLOUR) + " |\n");
+        System.out.println("Here, the " + addColourToString("X", PLAYER1_COLOUR) + " would be " + plyr1
+                + " at row 3 and column 3, (3,3).\n");
         System.out.println(addColourToString("'#' represents an unused spot.", "blue"));
     }
 
