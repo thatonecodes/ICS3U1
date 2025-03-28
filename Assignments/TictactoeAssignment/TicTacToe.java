@@ -65,7 +65,7 @@ public class TicTacToe {
                 : addColourToString(plyrName, PLAYER2_COLOUR);
     }
 
-    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) {
+    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) throws Exception{
         // returns a true or false value depending on if it successfuly added character
         try {
             if (grid[choice[0]][choice[1]] == null) {
@@ -73,9 +73,8 @@ public class TicTacToe {
                 grid[choice[0]][choice[1]] = currentPlayer.equals(PLAYER1_NAME) ? X_SYMBOL : O_SYMBOL;
                 return true;
             } else {
-                System.out.printf("\nInvalid input, there is %s's symbol at this spot!\n",
-                        addColourToName(grid[choice[0]][choice[1]].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME));
-                return false;
+                throw new Exception(String.format("\nInvalid input, there is %s's symbol at this spot!\n", 
+                        addColourToName(grid[choice[0]][choice[1]].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME)));
             }
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Invalid choice input, out of range of the grid!");
@@ -174,13 +173,17 @@ public class TicTacToe {
 
         while (true) { // main loop
             displayGrid(grid);
-            if (addCharacter(currentPlayer, grid, getUserInput(currentPlayer, scanner, grid))
-                    && (checkWin(grid, currentPlayer) || checkTie(grid))) {
-                displayGrid(grid);
-                printResult(grid, currentPlayer);
-                break;
+            try {
+                if (addCharacter(currentPlayer, grid, getUserInput(currentPlayer, scanner, grid))
+                        && (checkWin(grid, currentPlayer) || checkTie(grid))) {
+                    displayGrid(grid);
+                    printResult(grid, currentPlayer);
+                    break;
+                }
+                currentPlayer = switchPlayer(currentPlayer);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-            currentPlayer = switchPlayer(currentPlayer);
         }
 
         scanner.close();
