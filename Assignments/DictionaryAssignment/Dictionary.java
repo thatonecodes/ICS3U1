@@ -42,7 +42,7 @@ public class Dictionary {
         String fileName = Path.of("Assignments", "DictionaryAssignment", "dictionary.txt").toString();
         HashSet<String> dictionary = readDictionary(fileName);
 
-        System.out.println("Please input an english sentence: ");
+        System.out.println("\nPlease input an english sentence: ");
         String[] words = scanner.nextLine().split(" ");
 
         int count = 1;
