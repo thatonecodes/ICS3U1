@@ -65,7 +65,7 @@ public class TicTacToe {
                 : addColourToString(plyrName, PLAYER2_COLOUR);
     }
 
-    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) throws Exception{
+    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) throws Exception {
         // returns a true or false value depending on if it successfuly added character
         try {
             if (grid[choice[0]][choice[1]] == null) {
@@ -73,7 +73,7 @@ public class TicTacToe {
                 grid[choice[0]][choice[1]] = currentPlayer.equals(PLAYER1_NAME) ? X_SYMBOL : O_SYMBOL;
                 return true;
             } else {
-                throw new Exception(String.format("\nInvalid input, there is %s's symbol at this spot!\n", 
+                throw new Exception(String.format("\nInvalid input, there is %s's symbol at this spot!",
                         addColourToName(grid[choice[0]][choice[1]].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME)));
             }
         } catch (IndexOutOfBoundsException e) {
@@ -82,21 +82,19 @@ public class TicTacToe {
         }
     }
 
-    public static boolean checkLine(String a, String b, String c, String symbol) {
-        return a != null && b != null && c != null && a.equals(symbol) && b.equals(symbol) && c.equals(symbol);
+    public static boolean checkLine(String a, String b, String c) {
+        return a != null && b != null && c != null && a.equals(b) && b.equals(c);
     }
 
     public static boolean checkWin(String[][] grid, String currentPlayer) {
-        String symbol = currentPlayer.equals(PLAYER1_NAME) ? X_SYMBOL : O_SYMBOL;
-
         for (int i = 0; i < GRID_ROWS; i++) {
-            if (checkLine(grid[i][0], grid[i][1], grid[i][2], symbol) // Row win
-                    || checkLine(grid[0][i], grid[1][i], grid[2][i], symbol)) { // Column win
+            if (checkLine(grid[i][0], grid[i][1], grid[i][2]) // Row win
+                    || checkLine(grid[0][i], grid[1][i], grid[2][i])) { // Column win
                 return true;
             }
         }
-        return checkLine(grid[0][0], grid[1][1], grid[2][2], symbol) // Main diagonal
-                || checkLine(grid[0][2], grid[1][1], grid[2][0], symbol); // Other diagonal
+        return checkLine(grid[0][0], grid[1][1], grid[2][2]) // Main diagonal
+                || checkLine(grid[0][2], grid[1][1], grid[2][0]); // Other diagonal
     }
 
     public static boolean checkTie(String[][] grid) {
