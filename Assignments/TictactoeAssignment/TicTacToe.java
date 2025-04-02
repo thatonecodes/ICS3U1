@@ -1,6 +1,5 @@
 package TictactoeAssignment;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class TicTacToe {
@@ -108,27 +107,30 @@ public class TicTacToe {
         return true;
     }
 
+    public static int validInput(String input){
+        // Used to check if input is valid due to nextInt
+        if (input.length() == 1){
+            return Integer.parseInt(input);
+        }
+        return -1;
+    }
+
     public static int[] getUserInput(String currentPlayer, Scanner scanner, String[][] grid) {
         int[] choices = new int[2];
         while (true) {
-            try {
-                // make it by 1 instead of 0 index
-                System.out.printf("%s, enter row index (1-%d): ", addColourToName(currentPlayer), GRID_ROWS);
-                int row = scanner.nextInt() - 1; // 1-based to 0-based index
-                System.out.printf("%s, enter column index (1-%d): ", addColourToName(currentPlayer), GRID_COLUMNS);
-                int column = scanner.nextInt() - 1;
+            // make it by 1 instead of 0 index
+            System.out.printf("%s, enter row index (1-%d): ", addColourToName(currentPlayer), GRID_ROWS);
+            int row = validInput(scanner.nextLine()) - 1; // 1-based to 0-based index
+            System.out.printf("%s, enter column index (1-%d): ", addColourToName(currentPlayer), GRID_COLUMNS);
+            int column = validInput(scanner.nextLine()) - 1;
 
-                if (row >= 0 && row < GRID_ROWS && column >= 0 && column < GRID_COLUMNS) {
-                    choices[0] = row;
-                    choices[1] = column;
-                    return choices;
-                }
-
-                System.out.println("Invalid input! Enter numbers within range!");
-            } catch (InputMismatchException e) {
-                System.out.println("You can only input valid integers!");
-                scanner.nextLine(); // consume invalid input
+            if (row >= 0 && row < GRID_ROWS && column >= 0 && column < GRID_COLUMNS) {
+                choices[0] = row;
+                choices[1] = column;
+                return choices;
             }
+
+            System.out.println("Invalid input! Enter numbers within range!");
         }
     }
 
@@ -170,8 +172,8 @@ public class TicTacToe {
         printInfo();
 
         while (true) { // main loop
-            displayGrid(grid);
             try {
+                displayGrid(grid);
                 if (addCharacter(currentPlayer, grid, getUserInput(currentPlayer, scanner, grid))
                         && (checkWin(grid, currentPlayer) || checkTie(grid))) {
                     displayGrid(grid);
@@ -179,7 +181,10 @@ public class TicTacToe {
                     break;
                 }
                 currentPlayer = switchPlayer(currentPlayer);
-            } catch (Exception e) {
+            } catch (NumberFormatException e) {
+                System.out.println("\nInvalid input! Please enter a valid number!");
+            } 
+            catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         }
