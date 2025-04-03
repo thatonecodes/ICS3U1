@@ -38,19 +38,19 @@ public class TicTacToe {
     }
 
     public static void displayGrid(String[][] grid) {
-        String seperator = "\n----------------";
-        System.out.println("\nThe current grid is:\n" + seperator);
-        for (int i = 0; i < GRID_ROWS; i++) {
-            for (int j = 0; j < GRID_COLUMNS; j++) {
-                if (grid[i][j] == null) { // add placeholder if null
+        String separator = "\n" + "-".repeat(15);
+        System.out.println("\nThe current grid is:\n" + separator);
+        for (String[] row: grid) {
+            for (String cell: row) {
+                if (cell == null) { // add placeholder if null
                     System.out.print(addColourToString("  #  ", "blue"));
-                } else if (grid[i][j].equals(X_SYMBOL)) { // x symbol
-                    System.out.print(addColourToString(grid[i][j], PLAYER1_COLOUR));
+                } else if (cell.equals(X_SYMBOL)) { // x symbol
+                    System.out.print(addColourToString(cell, PLAYER1_COLOUR));
                 } else { // add O symbol red
-                    System.out.print(addColourToString(grid[i][j], PLAYER2_COLOUR));
+                    System.out.print(addColourToString(cell, PLAYER2_COLOUR));
                 }
             }
-            System.out.println(seperator);
+            System.out.println(separator);
         }
         System.out.println(); // newline
     }
@@ -64,21 +64,28 @@ public class TicTacToe {
                 : addColourToString(plyrName, PLAYER2_COLOUR);
     }
 
-    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) throws Exception {
+    public static boolean verifyRange(int row, int col){
+        return row >= 0 && row < GRID_ROWS && col >= 0 && col < GRID_COLUMNS;
+    }
+
+    public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) {
         // returns a true or false value depending on if it successfuly added character
-        try {
-            if (grid[choice[0]][choice[1]] == null) {
-                // add "X" or "O" depending on the current player
-                grid[choice[0]][choice[1]] = currentPlayer.equals(PLAYER1_NAME) ? X_SYMBOL : O_SYMBOL;
-                return true;
-            } else {
-                throw new Exception(String.format("\nInvalid input, there is %s's symbol at this spot!",
-                        addColourToName(grid[choice[0]][choice[1]].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME)));
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid choice input, out of range of the grid!");
+        int row = choice[0];
+        int col = choice[1];           
+
+        if (!verifyRange(row, col)) {
+            System.out.println("Invalid choice! Out of range of the grid.");
             return false;
         }
+
+        if (grid[row][col] != null) {
+            String occupiedBy = grid[row][col].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME;
+            System.out.printf("\nInvalid input! There is already %s's symbol at this spot!%n", addColourToName(occupiedBy));
+            return false;
+        }
+
+        grid[row][col] = (currentPlayer.equals(PLAYER1_NAME)) ? X_SYMBOL : O_SYMBOL;
+        return true;
     }
 
     public static boolean checkLine(String a, String b, String c) {
@@ -107,29 +114,25 @@ public class TicTacToe {
         return true;
     }
 
-    public static int validInput(String input){
-        // Used to check if input is valid due to nextInt
-        if (input.length() == 1){
-            return Integer.parseInt(input);
-        }
-        return -1;
-    }
-
     public static int[] getUserInput(String currentPlayer, Scanner scanner, String[][] grid) {
-        int[] choices = new int[2];
         while (true) {
-            // make it by 1 instead of 0 index
-            System.out.printf("%s, enter row index (1-%d): ", addColourToName(currentPlayer), GRID_ROWS);
-            int row = validInput(scanner.nextLine()) - 1; // 1-based to 0-based index
-            System.out.printf("%s, enter column index (1-%d): ", addColourToName(currentPlayer), GRID_COLUMNS);
-            int column = validInput(scanner.nextLine()) - 1;
+            try {
+                System.out.printf("%s, enter row and column index (1-%d row, 1-%d column): ", 
+                                addColourToName(currentPlayer), GRID_ROWS, GRID_COLUMNS);
+                String[] input = scanner.nextLine().split(" ");
+                int row = Integer.parseInt(input[0]) - 1;
+                int col = Integer.parseInt(input[1]) - 1;
 
-            if (row >= 0 && row < GRID_ROWS && column >= 0 && column < GRID_COLUMNS) {
-                choices[0] = row;
-                choices[1] = column;
-                return choices;
+                if (verifyRange(row, col)) {
+                    return new int[]{row, col};
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid number!");
+                continue;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Please input 2 valid integers seperated by a space!");
+                continue;
             }
-
             System.out.println("Invalid input! Enter numbers within range!");
         }
     }
@@ -152,6 +155,7 @@ public class TicTacToe {
         System.out.println("3|   #   |   #   | " + addColourToString(X_SYMBOL, PLAYER1_COLOUR) + " |\n");
         System.out.println("Here, the " + addColourToString("X", PLAYER1_COLOUR) + " would be " + plyr1
                 + " at row 3 and column 3, (3,3).\n");
+        System.out.println("To play, enter the row and column index in one line, seperated by a single space. ex.(3 2)\n");
         System.out.println(addColourToString("'#' represents an unused spot.", "blue"));
     }
 
@@ -172,20 +176,14 @@ public class TicTacToe {
         printInfo();
 
         while (true) { // main loop
-            try {
-                displayGrid(grid);
-                if (addCharacter(currentPlayer, grid, getUserInput(currentPlayer, scanner, grid))
-                        && (checkWin(grid, currentPlayer) || checkTie(grid))) {
+            displayGrid(grid);
+            if (addCharacter(currentPlayer, grid, getUserInput(currentPlayer, scanner, grid))) {
+                if (checkWin(grid, currentPlayer) || checkTie(grid)) {
                     displayGrid(grid);
                     printResult(grid, currentPlayer);
                     break;
                 }
                 currentPlayer = switchPlayer(currentPlayer);
-            } catch (NumberFormatException e) {
-                System.out.println("\nInvalid input! Please enter a valid number!");
-            } 
-            catch (Exception e) {
-                System.out.println(e.getMessage());
             }
         }
 
