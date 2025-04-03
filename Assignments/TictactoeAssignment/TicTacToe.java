@@ -40,8 +40,8 @@ public class TicTacToe {
     public static void displayGrid(String[][] grid) {
         String separator = "\n" + "-".repeat(15);
         System.out.println("\nThe current grid is:\n" + separator);
-        for (String[] row: grid) {
-            for (String cell: row) {
+        for (String[] row : grid) {
+            for (String cell : row) {
                 if (cell == null) { // add placeholder if null
                     System.out.print(addColourToString("  #  ", "blue"));
                 } else if (cell.equals(X_SYMBOL)) { // x symbol
@@ -64,14 +64,14 @@ public class TicTacToe {
                 : addColourToString(plyrName, PLAYER2_COLOUR);
     }
 
-    public static boolean verifyRange(int row, int col){
+    public static boolean verifyRange(int row, int col) {
         return row >= 0 && row < GRID_ROWS && col >= 0 && col < GRID_COLUMNS;
     }
 
     public static boolean addCharacter(String currentPlayer, String[][] grid, int[] choice) {
         // returns a true or false value depending on if it successfuly added character
         int row = choice[0];
-        int col = choice[1];           
+        int col = choice[1];
 
         if (!verifyRange(row, col)) {
             System.out.println("Invalid choice! Out of range of the grid.");
@@ -80,7 +80,8 @@ public class TicTacToe {
 
         if (grid[row][col] != null) {
             String occupiedBy = grid[row][col].equals(X_SYMBOL) ? PLAYER1_NAME : PLAYER2_NAME;
-            System.out.printf("\nInvalid input! There is already %s's symbol at this spot!%n", addColourToName(occupiedBy));
+            System.out.printf("\nInvalid input! There is already %s's symbol at this spot!%n",
+                    addColourToName(occupiedBy));
             return false;
         }
 
@@ -117,14 +118,14 @@ public class TicTacToe {
     public static int[] getUserInput(String currentPlayer, Scanner scanner, String[][] grid) {
         while (true) {
             try {
-                System.out.printf("%s, enter row and column index (1-%d row, 1-%d column): ", 
-                                addColourToName(currentPlayer), GRID_ROWS, GRID_COLUMNS);
+                System.out.printf("%s, enter row and column index (1-%d row, 1-%d column): ",
+                        addColourToName(currentPlayer), GRID_ROWS, GRID_COLUMNS);
                 String[] input = scanner.nextLine().split(" ");
                 int row = Integer.parseInt(input[0]) - 1;
                 int col = Integer.parseInt(input[1]) - 1;
 
                 if (verifyRange(row, col)) {
-                    return new int[]{row, col};
+                    return new int[] { row, col };
                 }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid number!");
@@ -155,7 +156,8 @@ public class TicTacToe {
         System.out.println("3|   #   |   #   | " + addColourToString(X_SYMBOL, PLAYER1_COLOUR) + " |\n");
         System.out.println("Here, the " + addColourToString("X", PLAYER1_COLOUR) + " would be " + plyr1
                 + " at row 3 and column 3, (3,3).\n");
-        System.out.println("To play, enter the row and column index in one line, seperated by a single space. ex.(3 2)\n");
+        System.out.println(
+                "To play, enter the row and column index in one line, seperated by a single space. ex.(3 2)\n");
         System.out.println(addColourToString("'#' represents an unused spot.", "blue"));
     }
 
