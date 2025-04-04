@@ -36,6 +36,7 @@ public class PopMachine {
             currentBalance -= priceOfPop;
             return priceOfPop;
         }
+        System.out.println(amountOfMoney);
 
         return 0.0;
     }
