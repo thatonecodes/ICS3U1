@@ -12,7 +12,7 @@ public class Quadratic {
     }
 
     private static String getSign(double value) {
-        return value > 0 ? Double.toString(value) : "-" + value;
+        return value > 0 ? " + " + Math.abs(value) : "- " + Math.abs(value);
     }
 
     public double getA() {
@@ -79,17 +79,20 @@ public class Quadratic {
     }
 
     public void getStandardForm() {
-        System.out.println(a + "x^2" + b + "x + " + c);
+        System.out.println(getSign(a) + "x^2" + getSign(b) + "x " + getSign(c));
     }
 
     public void getVertexForm() {
-        String h = String.valueOf(this.getVertex()[0]);
-        String k = String.valueOf(this.getVertex()[1]);
-        System.out.printf("%s(x - %s)^2 + %s", a, h, k);
-
+        String h = getSign(this.getVertex()[0]);
+        String k = getSign(this.getVertex()[1]);
+        System.out.printf("%s(x %s)^2 + %s%n", a, h, k);
     }
 
     public void getFactoredForm() {
+        double[] roots = this.getRoots();
+        String r1 = getSign(roots[0]);
+        String r2 = getSign(roots[1]);
 
+        System.out.printf("y = %.2f(x %s)(x %s)%n", a, r1, r2);
     }
 }
