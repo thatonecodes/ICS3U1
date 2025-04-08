@@ -10,28 +10,16 @@ import java.util.Scanner;
 
 public class Dictionary {
     public static HashSet<String> readDictionary(String fileName) {
-        BufferedReader inputStream = null;
-        String line = "";
         HashSet<String> dictionary = new HashSet<>();
-        try {
-            inputStream = new BufferedReader(new FileReader(fileName));
-
-            while ((line = inputStream.readLine()) != null) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                 dictionary.add(line);
             }
-
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found!");
         } catch (IOException e) {
-            System.out.println("Error reading file!");
-        } finally {
-            try {
-                if (inputStream != null) {
-                    inputStream.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Error closing the file!");
-            }
+            System.out.println("Error reading the file: " + e.getMessage());
         }
         return dictionary;
     }
@@ -43,12 +31,13 @@ public class Dictionary {
         HashSet<String> dictionary = readDictionary(fileName);
 
         System.out.println("\nPlease input an english sentence: ");
-        String[] words = scanner.nextLine().split(" ");
+        String[] words = scanner.nextLine().trim().split(" ");
 
         int count = 1;
         for (String word : words) {
-            System.out.println((dictionary.contains(word.toLowerCase())) ? count + ". " + word + "<valid>"
-                    : count + ". " + word + "<invalid>");
+            String wordString = count + ". " + word;
+            System.out.println(
+                    (dictionary.contains(word.toLowerCase())) ? wordString + "<valid>" : wordString + "<invalid>");
             count++;
         }
         scanner.close();
