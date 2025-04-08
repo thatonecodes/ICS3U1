@@ -1,6 +1,6 @@
 package PointAssignment;
 
-public class Main {
+public class TestPoint {
     public static void main(String[] args) {
         testConstructorAndGetters();
         testDifference();
@@ -10,19 +10,24 @@ public class Main {
         testSum();
         testYIntercept();
 
-        System.out.println("All tests passed!");
+        System.out.println("\n\nAll tests passed!");
     }
 
     static void testConstructorAndGetters() {
+        Point zeroPoint = new Point();
+
         Point p = new Point(3, 4);
         assert p.getX() == 3 : "Expected x to be 3";
         assert p.getY() == 4 : "Expected y to be 4";
+
+        assert zeroPoint.getX() == 0 : "Expected x to be 0";
+        assert zeroPoint.getY() == 0 : "Expected x to be 0";
     }
 
     static void testDifference() {
         Point a = new Point(5, 7);
         Point b = new Point(2, 3);
-        Point diff = a.difference(b);
+        Point diff = b.difference(a);
         assert diff.getX() == 3 : "Expected difference x to be 3";
         assert diff.getY() == 4 : "Expected difference y to be 4";
     }

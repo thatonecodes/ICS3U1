@@ -30,15 +30,12 @@ public class Dictionary {
         String fileName = Path.of("Assignments", "DictionaryAssignment", "dictionary.txt").toString();
         HashSet<String> dictionary = readDictionary(fileName);
 
-        System.out.println("\nPlease input an english sentence: ");
-        String[] words = scanner.nextLine().trim().split(" ");
+        System.out.println("\n\nPlease input an english sentence: ");
+        String[] words = scanner.nextLine().trim().replaceAll("\\s+", " ").split(" ");
 
-        int count = 1;
-        for (String word : words) {
-            String wordString = count + ". " + word;
-            System.out.println(
-                    (dictionary.contains(word.toLowerCase())) ? wordString + "<valid>" : wordString + "<invalid>");
-            count++;
+        for (int i = 0; i < words.length; i++) {
+            System.out.println(i + 1 + ". " + words[i]
+                    + (dictionary.contains(words[i].toLowerCase()) ? " <valid>" : " <invalid>"));
         }
         scanner.close();
     }
