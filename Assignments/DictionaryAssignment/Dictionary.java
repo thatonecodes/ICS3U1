@@ -9,8 +9,10 @@ import java.util.HashSet;
 import java.util.Scanner;
 
 public class Dictionary {
+
     public static HashSet<String> readDictionary(String fileName) {
         HashSet<String> dict = new HashSet<>();
+
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
