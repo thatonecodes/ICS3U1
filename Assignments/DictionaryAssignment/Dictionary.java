@@ -7,10 +7,11 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Dictionary {
 
-    public static HashSet<String> readDictionary(String fileName) {
+    public static Set<String> readDictionary(String fileName) {
         HashSet<String> dict = new HashSet<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -30,7 +31,7 @@ public class Dictionary {
         Scanner scanner = new Scanner(System.in);
         // make filepath interchangeable with different operating systems
         String filePath = Path.of("Assignments", "DictionaryAssignment", "dictionary.txt").toString();
-        HashSet<String> dictionary = readDictionary(filePath);
+        Set<String> dictionary = readDictionary(filePath);
 
         System.out.println("\n\nPlease input an english sentence: ");
         String[] words = scanner.nextLine().trim().split("\\s+");
