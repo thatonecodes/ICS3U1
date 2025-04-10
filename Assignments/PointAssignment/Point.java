@@ -33,7 +33,7 @@ public class Point {
     }
 
     public Point difference(Point point) {
-        return new Point(Math.abs(x - point.getX()), Math.abs(y - point.getY()));
+        return new Point(x - point.getX(), y - point.getY());
     }
 
     public double distance(Point point) {

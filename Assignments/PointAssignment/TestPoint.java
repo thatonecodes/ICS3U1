@@ -1,6 +1,7 @@
 package PointAssignment;
 
 public class TestPoint {
+
     public static void main(String[] args) {
         testConstructorAndGetters();
         testDifference();
