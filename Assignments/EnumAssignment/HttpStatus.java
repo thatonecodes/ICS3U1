@@ -53,4 +53,34 @@ public enum HttpStatus {
         }
         return false;
     }
+
+    public String responseType(int code) {
+        // based on RFC 2616 section 6 - Response Types
+        String[] contentTypes = new String[]{"Informational", "Success", "Redirection", "Client Error", "Server Error"};
+        int index = Integer.parseInt(String.parseInt(code).charAt(0)) - 1;
+        if (index >= 0 && index < contentTypes.length){
+            return contentTypes[index];
+        }
+        return UNKNOWN.getDescription();
+    }
+
+    public boolean isCommonCode() {
+        int[] commonCodes = new int[] {200, 301, 302, 400, 401, 403, 404, 500, 502, 503};
+        for (int commonCode : commonCodes) {
+            if (getCode() == commonCode) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isCacheable() {
+        int[] cachableCodes = new int[] {200, 203, 300, 301, 302, 404, 410};
+        for (int cachableCode : cachableCodes) {
+            if (getCode() == cachableCode) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
