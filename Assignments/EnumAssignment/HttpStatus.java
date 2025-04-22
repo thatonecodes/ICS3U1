@@ -57,7 +57,7 @@ public enum HttpStatus {
     public String responseType(int code) {
         // based on RFC 2616 section 6 - Response Types
         String[] contentTypes = new String[]{"Informational", "Success", "Redirection", "Client Error", "Server Error"};
-        int index = Integer.parseInt(String.parseInt(code).charAt(0)) - 1;
+        int index = Character.getNumericValue(String.valueOf(code).charAt(0)) - 1;
         if (index >= 0 && index < contentTypes.length){
             return contentTypes[index];
         }
