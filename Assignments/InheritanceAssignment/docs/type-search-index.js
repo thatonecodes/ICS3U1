@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"InheritanceAssignment","l":"GetRequest"},{"p":"InheritanceAssignment","l":"HttpRequest"},{"p":"InheritanceAssignment","l":"PostRequest"}];updateSearchResults();
