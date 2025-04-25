@@ -2,22 +2,38 @@ package InheritanceAssignment;
 
 import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest.Builder;
 import java.net.URI;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 /**
  * Represents an HTTP POST request.
+ * <p>
+ * This class extends {@link HttpRequest} and adds support for a request body.
+ * It automatically sets the method to "POST" and sends the request body as
+ * JSON.
+ * </p>
+ *
+ * <p>
+ * Example usage:
+ * </p>
+ * 
+ * <pre>{@code
+ * PostRequest postRequest = new PostRequest("https://example.com/api", "{\"key\":\"value\"}");
+ * HttpResponse<String> response = postRequest.send();
+ * System.out.println(response.body());
+ * }</pre>
+ *
+ * @see HttpRequest
  */
 public class PostRequest extends HttpRequest {
 
 	private String body;
 
 	/**
-	 * Creates a new POST request for the specified URL.
-	 * 
-	 * @param url The URL to send the POST request to
+	 * Constructs a new POST request for the specified URL with an empty body.
+	 *
+	 * @param url The URL to send the POST request to.
 	 */
 	public PostRequest(String url) {
 		super(url, "POST");
@@ -25,10 +41,10 @@ public class PostRequest extends HttpRequest {
 	}
 
 	/**
-	 * Creates a new POST request with the specified URL and body.
-	 * 
-	 * @param url  The URL to send the POST request to
-	 * @param body The body content to send with the request
+	 * Constructs a new POST request for the specified URL and request body.
+	 *
+	 * @param url  The URL to send the POST request to.
+	 * @param body The request body to send as a string (typically JSON).
 	 */
 	public PostRequest(String url, String body) {
 		super(url, "POST");
@@ -36,7 +52,11 @@ public class PostRequest extends HttpRequest {
 	}
 
 	/**
-	 * Overrides the send method to include the body in POST requests.
+	 * Sends the POST request with the included body content.
+	 * The content type is set to "application/json" by default.
+	 *
+	 * @return HttpResponse<String> The response from the server, or null if an
+	 *         error occurred.
 	 */
 	@Override
 	public HttpResponse<String> send() {
@@ -57,11 +77,20 @@ public class PostRequest extends HttpRequest {
 		}
 	}
 
-	// Getters and setters for body
+	/**
+	 * Gets the request body.
+	 *
+	 * @return The current body content as a string.
+	 */
 	public String getBody() {
 		return body;
 	}
 
+	/**
+	 * Sets the request body.
+	 *
+	 * @param body The new body content to send.
+	 */
 	public void setBody(String body) {
 		this.body = body;
 	}
