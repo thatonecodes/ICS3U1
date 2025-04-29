@@ -2,7 +2,6 @@ package InheritanceAssignment;
 
 import java.net.http.HttpResponse;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest.Builder;
 import java.net.URI;
 import java.io.IOException;
 import java.net.URISyntaxException;
