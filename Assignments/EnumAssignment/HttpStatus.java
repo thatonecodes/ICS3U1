@@ -45,6 +45,7 @@ public enum HttpStatus {
     }
 
     public boolean canContinue(){
+        // returns if the HTTP request a fail or success
         int[] validHttpCodes = new int[] {200, 201, 100, 101, 202, 302};
         for (int validCode : validHttpCodes) {
             if (getCode() == validCode) {
@@ -65,6 +66,7 @@ public enum HttpStatus {
     }
 
     public boolean isCommonCode() {
+        // from top 10 most common HTTP request codes article
         int[] commonCodes = new int[] {200, 301, 302, 400, 401, 403, 404, 500, 502, 503};
         for (int commonCode : commonCodes) {
             if (getCode() == commonCode) {
@@ -75,6 +77,7 @@ public enum HttpStatus {
     }
 
     public boolean isCacheable() {
+        // based on RFC 2616 - Cacheable HTTP Request Codes
         int[] cachableCodes = new int[] {200, 203, 300, 301, 302, 404, 410};
         for (int cachableCode : cachableCodes) {
             if (getCode() == cachableCode) {
