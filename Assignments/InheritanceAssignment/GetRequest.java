@@ -1,5 +1,8 @@
 package InheritanceAssignment;
-
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException; 
 /**
  * Represents an HTTP GET request.
  * <p>
@@ -35,4 +38,27 @@ public class GetRequest extends HttpRequest {
 	// - Adding query parameters
 	// - Customizing headers
 	// - Caching logic
+
+    private static boolean hasQueryString(String urlString) {
+        try {
+            URL url = new URI(urlString).toURL();
+            String query = url.getQuery();
+            return query != null && !query.isEmpty();
+        } catch (URISyntaxException e) {
+            System.err.println("Malformed URI: " + e.getMessage());
+            return false;
+        } catch (MalformedURLException e) {
+            System.err.println("Malformed URL: " + e.getMessage());
+            return false;
+		}
+    } 
+
+	/**
+	 * Checks if the specified url can be cacheable in localstorage.
+	 * 
+	 * @param url The URL to check if it is cacheable.
+	 */
+    public boolean isCacheable(String url) {
+		return hasQueryString(url);
+    }
 }

@@ -90,8 +90,6 @@ public class HttpRequest {
 		return method;
 	}
 
-	// TODO override ToString methods
-
 	/**
 	 * Sets the HTTP method of this request.
 	 *
@@ -99,5 +97,14 @@ public class HttpRequest {
 	 */
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	/**
+	 * Returns the toString representation of this object.
+	 * 
+	 * @return HTTP method and url as a string. 
+	 */
+	public String toString() {
+		return String.format("HTTP %s Request for url: %s", method, url);
 	}
 }

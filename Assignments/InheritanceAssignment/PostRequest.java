@@ -94,4 +94,13 @@ public class PostRequest extends HttpRequest {
 	public void setBody(String body) {
 		this.body = body;
 	}
+
+	/**
+	 * Sends the PostRequest and returns the response body as a string.
+	 *
+	 * @return The response body as a string.
+	 */
+	public String sendReadResponse() {
+		return send().body().toString();
+	}
 }
