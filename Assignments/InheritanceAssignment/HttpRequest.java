@@ -43,7 +43,7 @@ public class HttpRequest {
 	/**
 	 * Sends the HTTP request using the specified URL and method.
 	 * 
-	 * @return HttpResponse<String> The response from the server, or null if an
+	 * @return HttpResponse The response from the server, or null if an
 	 *         error occurred.
 	 */
 	public HttpResponse<String> send() {
@@ -105,6 +105,6 @@ public class HttpRequest {
 	 * @return HTTP method and url as a string. 
 	 */
 	public String toString() {
-		return String.format("HTTP %s Request for url: %s", method, url);
+		return String.format("%s HTTP Request for url: %s", method, url);
 	}
 }

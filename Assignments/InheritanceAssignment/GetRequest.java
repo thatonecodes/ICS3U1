@@ -4,6 +4,7 @@ import java.net.http.HttpResponse;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException; 
+
 /**
  * Represents an HTTP GET request.
  * <p>
@@ -40,7 +41,7 @@ public class GetRequest extends HttpRequest {
      * This method parses the URL and returns true if a non-empty query component is present.
      *
      * @param urlString The URL string to analyze.
-     * @return true if the URL contains a query string; false otherwise.
+     * @return true If the URL contains a query string; false otherwise.
      */
     private static boolean hasQueryString(String urlString) {
         try {
@@ -60,6 +61,7 @@ public class GetRequest extends HttpRequest {
 	 * Checks if the specified url can be cacheable in memory.
 	 * 
 	 * @param url The URL to check if it is cacheable.
+	 * @return true If the URL string is able to be cached based on structure.
 	 */
     public boolean isCacheable(String url) {
 		return !hasQueryString(url);
@@ -68,10 +70,22 @@ public class GetRequest extends HttpRequest {
 	/**
 	 * Sends a HTTP GET request to "https://example.com" for testing purposes.
 	 * 
-	 * @return HttpResponse<String> The HttpResponse received from "https://example.com".
+	 * @return HttpResponse The HttpResponse received from "https://example.com".
 	 */
 	public HttpResponse<String> sendExampleResponse() {
 		GetRequest getRequest = new GetRequest("https://example.com");
 		return getRequest.send();
+	}
+
+	/**
+	 * Sends a HTTP GET request to "https://http.cat/{YOUR_HTTP_CODE}" for nice cat images.
+	 * 
+	 * @param httpCode The HTTP code to get the image for (e.g., "200", "400", etc.)
+	 * @return String The String received from the HttpResponse to "https://http.cat/{YOUR_HTTP_CODE}", link to an image.
+	 */
+	public String getCatImageFromCode(int httpCode) {
+		GetRequest getRequest = new GetRequest(String.format("https://http.cat/%d", httpCode));
+		HttpResponse<String> response = getRequest.send();
+		return response.body();
 	}
 }

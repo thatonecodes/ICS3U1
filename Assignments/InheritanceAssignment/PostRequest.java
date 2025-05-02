@@ -55,7 +55,7 @@ public class PostRequest extends HttpRequest {
 	 * Sends the POST request with the included body content.
 	 * The content type is set to "application/json" by default.
 	 *
-	 * @return HttpResponse<String> The response from the server, or null if an
+	 * @return HttpResponse The response from the server, or null if an
 	 *         error occurred.
 	 */
 	@Override
@@ -102,5 +102,24 @@ public class PostRequest extends HttpRequest {
 	 */
 	public String sendReadResponse() {
 		return send().body().toString();
+	}
+
+	/**
+	 * Sends a HTTP POST request to "https://example.com" for testing purposes.
+	 * 
+	 * @return HttpResponse The HttpResponse received from "https://example.com".
+	 */
+	public HttpResponse<String> sendExampleRequest() {
+		PostRequest postRequest = new PostRequest("https://example.com/api", "{\"key\":\"value\"}");
+		return postRequest.send();
+	}
+
+	/**
+	 * Returns true if the request has a body with content which is not null and not "" (nothing). 
+	 * 
+	 * @return HttpResponse The HttpResponse received from "https://example.com".
+	 */
+	public boolean requestHasBody() {
+		return body != null && body.equals("");
 	}
 }
