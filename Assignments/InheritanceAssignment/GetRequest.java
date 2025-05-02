@@ -34,11 +34,13 @@ public class GetRequest extends HttpRequest {
 		super(url, "GET");
 	}
 
-	// methods to add:
-	// - Adding query parameters
-	// - Customizing headers
-	// - Caching logic
-
+    /**
+     * Checks whether the given URL string contains a query string.
+     * This method parses the URL and returns true if a non-empty query component is present.
+     *
+     * @param urlString The URL string to analyze.
+     * @return true if the URL contains a query string; false otherwise.
+     */
     private static boolean hasQueryString(String urlString) {
         try {
             URL url = new URI(urlString).toURL();
@@ -51,14 +53,14 @@ public class GetRequest extends HttpRequest {
             System.err.println("Malformed URL: " + e.getMessage());
             return false;
 		}
-    } 
+    }
 
 	/**
-	 * Checks if the specified url can be cacheable in localstorage.
+	 * Checks if the specified url can be cacheable in memory.
 	 * 
 	 * @param url The URL to check if it is cacheable.
 	 */
     public boolean isCacheable(String url) {
-		return hasQueryString(url);
+		return !hasQueryString(url);
     }
 }
