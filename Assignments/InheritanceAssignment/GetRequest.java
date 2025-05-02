@@ -1,5 +1,6 @@
 package InheritanceAssignment;
 import java.net.URL;
+import java.net.http.HttpResponse;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException; 
@@ -63,4 +64,14 @@ public class GetRequest extends HttpRequest {
     public boolean isCacheable(String url) {
 		return !hasQueryString(url);
     }
+
+	/**
+	 * Sends a HTTP GET request to "https://example.com" for testing purposes.
+	 * 
+	 * @return HttpResponse<String> The HttpResponse received from "https://example.com".
+	 */
+	public HttpResponse<String> sendExampleResponse() {
+		GetRequest getRequest = new GetRequest("https://example.com");
+		return getRequest.send();
+	}
 }
