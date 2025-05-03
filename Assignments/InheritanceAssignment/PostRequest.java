@@ -98,7 +98,7 @@ public class PostRequest extends HttpRequest {
 	/**
 	 * Sends the PostRequest and returns the response body as a string.
 	 *
-	 * @return The response body as a string.
+	 * @return String The response body as a string.
 	 */
 	public String sendReadResponse() {
 		return send().body().toString();
@@ -115,9 +115,9 @@ public class PostRequest extends HttpRequest {
 	}
 
 	/**
-	 * Returns true if the request has a body with content which is not null and not "" (nothing). 
+	 * Checks if the request is valid and has a body with content.
 	 * 
-	 * @return HttpResponse The HttpResponse received from "https://example.com".
+	 * @return true If the body is not a falsy value.
 	 */
 	public boolean requestHasBody() {
 		return body != null && body.equals("");
