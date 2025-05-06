@@ -1,56 +1,137 @@
 package com.photoshop;
 
-import java.io.IOException;
 import com.photoshop.utils.AppUtils;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.util.Duration;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 public class PrimaryController {
-    @FXML
-    private SplitPane usageTab;  
-    @FXML
-    private Button toggleButton; 
-    @FXML
-    private Label timeSpentLabel;
-    @FXML
-    private Label versionLabel;
-    @FXML
-    private Label openCountLabel;
-
-    private long startTime = System.currentTimeMillis(); 
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
-    }
+    private MenuItem aboutButton;
 
     @FXML
-    private void toggleUsageBtn() {
-        boolean isVisible = usageTab.isVisible();
-        usageTab.setVisible(!isVisible);
-        toggleButton.setText(isVisible ? "▼ Show" : "▲ Hide");
-        AppUtils utils = new AppUtils();
+    private MenuItem blurButton;
 
-        //increment the count
-        utils.incrementAppOpenCount();
-        openCountLabel.setText("App Open Count: " + utils.getAppOpenCount());
-        if (!isVisible){
-            Timeline timeline = new Timeline(
-                new KeyFrame(Duration.seconds(1), e -> {
-                    // time spent (in seconds)
-                    long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
-                    timeSpentLabel.setText("Time Spent: " + elapsedTime + "s");
-                })
-            );
-            timeline.setCycleCount(Timeline.INDEFINITE);
-            timeline.play();
-            versionLabel.setText("Version: " + utils.getVersionString());
-        }
+    @FXML
+    private MenuItem closeFileButton;
+
+    @FXML
+    private MenuItem copyButton;
+
+    @FXML
+    private MenuItem cutButton;
+
+    @FXML
+    private MenuItem deleteButton;
+
+    @FXML
+    private MenuItem fullscreenButton;
+
+    @FXML
+    private MenuItem grayScaleButton;
+
+    @FXML
+    private MenuItem hideToolbarButton;
+
+    @FXML
+    private SeparatorMenuItem insert;
+
+    @FXML
+    private MenuItem insertAudio;
+
+    @FXML
+    private MenuItem insertCircle;
+
+    @FXML
+    private MenuItem insertCode;
+
+    @FXML
+    private MenuItem insertImage;
+
+    @FXML
+    private MenuItem insertLink;
+
+    @FXML
+    private MenuItem insertRectangle;
+
+    @FXML
+    private MenuItem insertVideo;
+
+    @FXML
+    private MenuItem invertButton;
+
+    @FXML
+    private Label metadataLabel;
+
+    @FXML
+    private AnchorPane metadataPane;
+
+    @FXML
+    private MenuItem newFileLabel;
+
+    @FXML
+    private MenuItem openFileButton;
+
+    @FXML
+    private MenuItem pasteButton;
+
+    @FXML
+    private MenuItem prefButton;
+
+    @FXML
+    private MenuItem quitButton;
+
+    @FXML
+    private MenuItem redoButton;
+
+    @FXML
+    private MenuItem resizeButton;
+
+    @FXML
+    private MenuItem revertFileButton;
+
+    @FXML
+    private MenuItem saveFileAsButton;
+
+    @FXML
+    private MenuItem saveFileButton;
+
+    @FXML
+    private MenuItem selectAllButton;
+
+    @FXML
+    private MenuItem sharpenButton;
+
+    @FXML
+    private MenuItem undoButton;
+
+    @FXML
+    private MenuItem unselectAllButton;
+
+    @FXML
+    private Font x1;
+
+    @FXML
+    private Color x2;
+
+    @FXML
+    private Font x3;
+
+    @FXML
+    private Color x4;
+
+    @FXML
+    private MenuItem zoomButton;
+
+    @FXML
+    void quitAppButton(ActionEvent event) {
+        AppUtils.quitApp();
     }
 }

@@ -33,7 +33,6 @@
 -->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -41,7 +40,6 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -57,80 +55,80 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
+            <MenuItem fx:id="newFileLabel" mnemonicParsing="false" text="New" />
+            <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
+            <MenuItem fx:id="closeFileButton" mnemonicParsing="false" text="Close" />
+            <MenuItem fx:id="saveFileButton" mnemonicParsing="false" text="Save" />
+            <MenuItem fx:id="saveFileAsButton" mnemonicParsing="false" text="Save As…" />
+            <MenuItem fx:id="revertFileButton" mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem fx:id="prefButton" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quitAppButton" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem fx:id="undoButton" mnemonicParsing="false" text="Undo" />
+            <MenuItem fx:id="redoButton" mnemonicParsing="false" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem fx:id="cutButton" mnemonicParsing="false" text="Cut" />
+            <MenuItem fx:id="copyButton" mnemonicParsing="false" text="Copy" />
+            <MenuItem fx:id="pasteButton" mnemonicParsing="false" text="Paste" />
+            <MenuItem fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem fx:id="selectAllButton" mnemonicParsing="false" text="Select All" />
+            <MenuItem fx:id="unselectAllButton" mnemonicParsing="false" text="Unselect All" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="View">
           <items>
-            <MenuItem mnemonicParsing="false" text="Zoom" />
-                  <MenuItem mnemonicParsing="false" text="Fullscreen" />
+            <MenuItem fx:id="zoomButton" mnemonicParsing="false" text="Zoom" />
+                  <MenuItem fx:id="fullscreenButton" mnemonicParsing="false" text="Fullscreen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Hide Toolbar" />
+                  <MenuItem fx:id="hideToolbarButton" mnemonicParsing="false" text="Hide Toolbar" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Insert">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Image" />
-                  <MenuItem mnemonicParsing="false" text="Link" />
+                  <MenuItem fx:id="insertImage" mnemonicParsing="false" text="Image" />
+                  <MenuItem fx:id="insertLink" mnemonicParsing="false" text="Link" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Video" />
-                  <MenuItem mnemonicParsing="false" text="Audio" />
+                  <MenuItem fx:id="insertVideo" mnemonicParsing="false" text="Video" />
+                  <MenuItem fx:id="insertAudio" mnemonicParsing="false" text="Audio" />
+                  <SeparatorMenuItem fx:id="insert" mnemonicParsing="false" />
+                  <MenuItem fx:id="insertCircle" mnemonicParsing="false" text="Circle" />
+                  <MenuItem fx:id="insertRectangle" mnemonicParsing="false" text="Rectangle" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Circle" />
-                  <MenuItem mnemonicParsing="false" text="Rectangle" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Code Block" />
+                  <MenuItem fx:id="insertCode" mnemonicParsing="false" text="Code Block" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Modify">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Gaussian Blur" />
-                  <MenuItem mnemonicParsing="false" text="Invert" />
-                  <MenuItem mnemonicParsing="false" text="Greyscale" />
-                  <MenuItem mnemonicParsing="false" text="Sharpen" />
+                  <MenuItem fx:id="blurButton" mnemonicParsing="false" text="Gaussian Blur" />
+                  <MenuItem fx:id="invertButton" mnemonicParsing="false" text="Invert" />
+                  <MenuItem fx:id="grayScaleButton" mnemonicParsing="false" text="Greyscale" />
+                  <MenuItem fx:id="sharpenButton" mnemonicParsing="false" text="Sharpen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Resize x2" />
+                  <MenuItem fx:id="resizeButton" mnemonicParsing="false" text="Resize x2" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                  <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About Botoshop" />
                </items>
             </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane>
+        <AnchorPane fx:id="metadataPane">
           <children>
                   <BorderPane>
                      <top>
-                  <Label alignment="CENTER" minWidth="60.0" prefHeight="63.0" prefWidth="73.0" style="&#10;" text="Metadata" textAlignment="CENTER" wrapText="false" BorderPane.alignment="CENTER">
+                  <Label alignment="CENTER" minWidth="60.0" prefHeight="63.0" prefWidth="221.0" style="&#10;" text="Metadata" textAlignment="CENTER" wrapText="false" BorderPane.alignment="CENTER">
                     <font>
                       <Font size="18.0" fx:id="x1" />
                     </font>
@@ -139,9 +137,9 @@
                     </textFill>
                   </Label>
                      </top>
-                     <center>
-                        <TextField prefHeight="499.0" prefWidth="220.0" BorderPane.alignment="CENTER" />
-                     </center>
+                     <bottom>
+                        <Label fx:id="metadataLabel" alignment="TOP_CENTER" prefHeight="195.0" prefWidth="224.0" text="None" BorderPane.alignment="CENTER" />
+                     </bottom>
                   </BorderPane>
           </children>
         </AnchorPane>
@@ -149,56 +147,16 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                        <ImageView fitHeight="551.0" fitWidth="431.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="551.0" fitWidth="670.0" pickOnBounds="true" preserveRatio="true" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
-        <AnchorPane>
-          <children>
-                  <VBox alignment="CENTER" spacing="5.0">
-                     <children>
-                        <Button fx:id="toggleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#toggleUsageBtn" prefHeight="26.0" prefWidth="66.0" text="▼ Show" />
-                        <SplitPane fx:id="usageTab" dividerPositions="0.5" orientation="VERTICAL" prefHeight="551.0" prefWidth="217.0" visible="false" VBox.vgrow="ALWAYS">
-                          <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                              <Label alignment="CENTER" font="$x1" layoutX="-1.0" prefHeight="57.0" prefWidth="217.0" style="&#10;" text="Details" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                                 </children>
-                              </AnchorPane>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                 <children>
-                                    <Label alignment="CENTER" layoutX="-1.0" prefHeight="57.0" prefWidth="217.0" style="&#10;" text="Stats" textAlignment="CENTER" wrapText="false">
-                                       <font>
-                                          <Font size="18.0" fx:id="x11" />
-                                       </font>
-                                       <textFill>
-                                          <Color red="0.624" green="0.624" blue="0.624" fx:id="x21" />
-                                       </textFill>
-                                    </Label>
-                                    <VBox alignment="CENTER" layoutY="55.0" prefHeight="198.0" prefWidth="215.0" spacing="35.0">
-                                       <children>
-                                          <Label fx:id="timeSpentLabel" text="Time Spent:" />
-                                          <Label fx:id="openCountLabel" text="App Open Count:" />
-                                          <Label fx:id="versionLabel" text="Version:" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                          </items>
-                        </SplitPane>
-                     </children>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </VBox>
-          </children>
-        </AnchorPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Quick Action" HBox.hgrow="ALWAYS">
           <font>
             <Font size="11.0" fx:id="x3" />
           </font>
@@ -207,7 +165,7 @@
           </textFill>
         </Label>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
-        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+        <Label font="$x3" maxWidth="-1.0" text="Time" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
