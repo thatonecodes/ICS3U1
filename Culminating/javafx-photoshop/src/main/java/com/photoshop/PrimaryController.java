@@ -1,17 +1,29 @@
 package com.photoshop;
 
+import java.util.Stack;
+
 import com.photoshop.utils.AppUtils;
+import com.photoshop.utils.Constants;
+import com.photoshop.utils.ImageUtils;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class PrimaryController {
+
+    private Stage stage;
+    private Image originalImage;
+    private Stack<String> userActionStack;
 
     @FXML
     private MenuItem aboutButton;
@@ -24,6 +36,9 @@ public class PrimaryController {
 
     @FXML
     private MenuItem copyButton;
+
+    @FXML
+    private ImageView imageView;
 
     @FXML
     private MenuItem cutButton;
@@ -133,5 +148,26 @@ public class PrimaryController {
     @FXML
     void quitAppButton(ActionEvent event) {
         AppUtils.quitApp();
+    }
+
+    @FXML
+    void aboutButton(ActionEvent event) {
+        AppUtils.createAlert(String.format("About %s", Constants.APP_NAME), "Botoshop is a replacement for photoshop, in javafx", "Created for ICS3U1 project, June 2025", AlertType.INFORMATION);
+    }
+
+    @FXML
+    void onOpenImage(ActionEvent event) {
+        // saves image to original image, opens image in imgview
+        AppUtils.openImage(originalImage, imageView, stage);
+    }
+
+    @FXML
+    public void onSaveImage(ActionEvent event) {
+        AppUtils.saveImage(imageView);
+    }
+
+    @FXML
+    void onHorizontalFlip(ActionEvent event) {
+        ImageUtils.onHorizontalFlip(imageView);
     }
 }

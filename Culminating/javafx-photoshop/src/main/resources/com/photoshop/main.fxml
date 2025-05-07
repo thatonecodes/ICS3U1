@@ -56,17 +56,18 @@
         <Menu mnemonicParsing="false" text="File">
           <items>
             <MenuItem fx:id="newFileLabel" mnemonicParsing="false" text="New" />
-            <MenuItem fx:id="openFileButton" mnemonicParsing="false" text="Open…" />
+            <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#onOpenImage" text="Open…" />
             <Menu mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="closeFileButton" mnemonicParsing="false" text="Close" />
-            <MenuItem fx:id="saveFileButton" mnemonicParsing="false" text="Save" />
+            <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#onSaveImage" text="Save" />
             <MenuItem fx:id="saveFileAsButton" mnemonicParsing="false" text="Save As…" />
             <MenuItem fx:id="revertFileButton" mnemonicParsing="false" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="prefButton" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quitAppButton" text="Quit" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
@@ -117,7 +118,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem fx:id="aboutButton" mnemonicParsing="false" text="About Botoshop" />
+                  <MenuItem fx:id="aboutButton" mnemonicParsing="false" onAction="#aboutButton" text="About Botoshop" />
                </items>
             </Menu>
       </menus>
@@ -147,7 +148,7 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                        <ImageView fitHeight="551.0" fitWidth="670.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView" fitHeight="551.0" fitWidth="670.0" pickOnBounds="true" preserveRatio="true" />
               </children>
             </AnchorPane>
           </content>
