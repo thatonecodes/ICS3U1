@@ -179,11 +179,11 @@ public class PrimaryController {
 
     @FXML
     void onGaussianBlur(ActionEvent event) {
-        // ImageUtils.applyGaussianBlur(imageView);
+        ImageUtils.applyGaussianBlur(imageView, Constants.BLUR_RADIUS, Constants.BLUR_SIGMA);
     }
 
     @FXML
     void onRotateImage(ActionEvent event) {
-        ImageUtils.onRotate(imageView, 90);
+        ImageUtils.onRotate(imageView, 45);
     }
 }
