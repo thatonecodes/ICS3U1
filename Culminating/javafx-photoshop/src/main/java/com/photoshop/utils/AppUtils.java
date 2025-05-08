@@ -2,10 +2,10 @@ package com.photoshop.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ContentHandler;
 
 import javax.imageio.ImageIO;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -67,7 +67,6 @@ public class AppUtils {
 
         if (file != null) {
             WritableImage writableImage = imageView.snapshot(null, null);
-            // TODO fix the imageio dependencies
             try {
                 ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
             } catch (IOException e) {

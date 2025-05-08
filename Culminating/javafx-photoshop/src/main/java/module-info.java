@@ -3,6 +3,7 @@ module com.photoshop {
     requires transitive javafx.base;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.swing;
     requires java.desktop;
 
     opens com.photoshop to javafx.fxml;

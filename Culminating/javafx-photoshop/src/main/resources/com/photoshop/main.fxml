@@ -108,12 +108,14 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Modify">
                <items>
-                  <MenuItem fx:id="blurButton" mnemonicParsing="false" text="Gaussian Blur" />
+                  <MenuItem fx:id="blurButton" mnemonicParsing="false" onAction="#onGaussianBlur" text="Gaussian Blur" />
                   <MenuItem fx:id="invertButton" mnemonicParsing="false" text="Invert" />
                   <MenuItem fx:id="grayScaleButton" mnemonicParsing="false" text="Greyscale" />
                   <MenuItem fx:id="sharpenButton" mnemonicParsing="false" text="Sharpen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="resizeButton" mnemonicParsing="false" text="Resize x2" />
+                  <MenuItem fx:id="rotateImage" mnemonicParsing="false" onAction="#onRotateImage" text="Rotate" />
+                  <MenuItem fx:id="horizontalFlip" mnemonicParsing="false" onAction="#onHorizontalFlip" text="Horizontal Flip" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

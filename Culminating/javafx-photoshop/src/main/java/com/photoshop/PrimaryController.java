@@ -119,7 +119,13 @@ public class PrimaryController {
     private MenuItem saveFileButton;
 
     @FXML
+    private MenuItem rotateImage;
+
+    @FXML
     private MenuItem selectAllButton;
+
+    @FXML
+    private MenuItem horizontalFlip;
 
     @FXML
     private MenuItem sharpenButton;
@@ -169,5 +175,15 @@ public class PrimaryController {
     @FXML
     void onHorizontalFlip(ActionEvent event) {
         ImageUtils.onHorizontalFlip(imageView);
+    }
+
+    @FXML
+    void onGaussianBlur(ActionEvent event) {
+        // ImageUtils.applyGaussianBlur(imageView);
+    }
+
+    @FXML
+    void onRotateImage(ActionEvent event) {
+        ImageUtils.onRotate(imageView, 90);
     }
 }
