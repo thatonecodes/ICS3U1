@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.ContentHandler;
 
-// import javax.imageio.ImageIO;
+import javax.imageio.ImageIO;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 
 /**
  * This class contains useful application utilities to be used in App.java.
@@ -67,11 +68,11 @@ public class AppUtils {
         if (file != null) {
             WritableImage writableImage = imageView.snapshot(null, null);
             // TODO fix the imageio dependencies
-            // try {
-            //     ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
-            // } catch (IOException e) {
-            //     createAlert("Error", "Image Save Failed", "There was a problem saving your image", AlertType.ERROR);
-            // }
+            try {
+                ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", file);
+            } catch (IOException e) {
+                createAlert("Error", "Image Save Failed", "There was a problem saving your image", AlertType.ERROR);
+            }
         }
     }
 }
