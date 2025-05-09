@@ -2,12 +2,14 @@ package com.photoshop.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -73,5 +75,23 @@ public class AppUtils {
                 createAlert("Error", "Image Save Failed", "There was a problem saving your image", AlertType.ERROR);
             }
         }
+    }
+
+    public static double promptForDegree(String title, String headerText, String contentText, String defaultVal) {
+        TextInputDialog dialog = new TextInputDialog(defaultVal); // default value
+        dialog.setTitle(title);
+        dialog.setHeaderText(headerText);
+        dialog.setContentText(contentText);
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+            try {
+                return Double.parseDouble(result.get());
+            } catch (NumberFormatException e) {
+                AppUtils.createAlert("Invalid Input", "Invalid Number format!", "", AlertType.ERROR);
+            }
+        }
+        return 0.0;
     }
 }

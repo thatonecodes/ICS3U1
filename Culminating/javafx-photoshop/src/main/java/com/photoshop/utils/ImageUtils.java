@@ -49,7 +49,9 @@ public class ImageUtils {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                double redSum = 0, greenSum = 0, blueSum = 0;
+                double redSum = 0;
+                double greenSum = 0;
+                double blueSum = 0;
 
                 for (int ky = -radius; ky <= radius; ky++) {
                     for (int kx = -radius; kx <= radius; kx++) {
@@ -110,7 +112,7 @@ public class ImageUtils {
 
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                // must reversely map destination pixel (x, y) to source to avoid white dots
+                // must reversely map destination pixel (y, x) to source to avoid white dots
                 double dx = x - cx;
                 double dy = y - cy;
 
@@ -128,5 +130,102 @@ public class ImageUtils {
             }
         }
         imageView.setImage(rotatedImage);
+    }
+
+    public static void applyGrayscale(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+
+        WritableImage grayscaledImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = grayscaledImage.getPixelWriter();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color color = reader.getColor(x, y);
+                writer.setColor(x, y, new Color(color.getRed() * Constants.GRAYSCALE_VALUES[0], color.getGreen() * Constants.GRAYSCALE_VALUES[1], color.getBlue() * Constants.GRAYSCALE_VALUES[2], color.getOpacity()));
+            }
+        }
+
+        imageView.setImage(grayscaledImage);
+    }
+
+    public static void applySepia(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage sepiaImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = sepiaImage.getPixelWriter();
+    
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color color = reader.getColor(x, y);
+                double r = color.getRed();
+                double g = color.getGreen();
+                double b = color.getBlue();
+    
+                double newR = Constants.SEPIA_VALUES[0][0] * r + Constants.SEPIA_VALUES[0][1] * g + Constants.SEPIA_VALUES[0][2] * b;
+                double newG = Constants.SEPIA_VALUES[1][0] * r + Constants.SEPIA_VALUES[1][1] * g + Constants.SEPIA_VALUES[1][2] * b;
+                double newB = Constants.SEPIA_VALUES[2][0] * r + Constants.SEPIA_VALUES[2][1] * g + Constants.SEPIA_VALUES[2][2] * b;
+    
+                newR = clamp(newR);
+                newG = clamp(newG);
+                newB = clamp(newB);
+    
+                writer.setColor(x, y, new Color(newR, newG, newB, color.getOpacity()));
+            }
+        }
+    
+        imageView.setImage(sepiaImage);
+    }
+
+    public static void invertColor(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+
+        WritableImage invertedImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = invertedImage.getPixelWriter();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color color = reader.getColor(x, y);
+                writer.setColor(x, y, new Color(1 - color.getRed(), 1 - color.getGreen(), 1 - color.getBlue(), color.getOpacity()));
+            }
+        }
+
+        imageView.setImage(invertedImage);
+    }
+
+    public static void applyBrightness(ImageView imageView, int brightness) {
+        // clamp brightness between 1 and 100
+        brightness = Math.max(1, Math.min(brightness, 100));
+        double factor = brightness / 100.0;
+    
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage brightenedImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = brightenedImage.getPixelWriter();
+    
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color color = reader.getColor(x, y);
+    
+                double r = clamp(color.getRed() * factor);
+                double g = clamp(color.getGreen() * factor);
+                double b = clamp(color.getBlue() * factor);
+    
+                writer.setColor(x, y, new Color(r, g, b, color.getOpacity()));
+            }
+        }
+    
+        imageView.setImage(brightenedImage);
     }
 }

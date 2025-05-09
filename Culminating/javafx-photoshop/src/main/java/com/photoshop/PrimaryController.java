@@ -184,6 +184,23 @@ public class PrimaryController {
 
     @FXML
     void onRotateImage(ActionEvent event) {
-        ImageUtils.onRotate(imageView, 45);
+        ImageUtils.onRotate(imageView, AppUtils.promptForDegree("Rotate Image", "Enter the rotation angle in degrees:", "Degrees:", "45"));
     }
+
+    @FXML
+    void onGrayscaleImage(ActionEvent event) {
+        ImageUtils.applyGrayscale(imageView);
+    }
+
+    @FXML
+    void onSepiaImage(ActionEvent event) {
+        ImageUtils.applySepia(imageView);
+    }
+
+    @FXML
+    void onInvertImage(ActionEvent event) {
+        ImageUtils.invertColor(imageView);
+    }
+
+    // void onBrightenImage
 }
