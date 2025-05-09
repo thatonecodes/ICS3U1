@@ -201,7 +201,7 @@ public class ImageUtils {
         imageView.setImage(invertedImage);
     }
 
-    public static void applyBrightness(ImageView imageView, int brightness) {
+    public static void applyBrightness(ImageView imageView, double brightness) {
         // clamp brightness between 1 and 100
         brightness = Math.max(1, Math.min(brightness, 100));
         double factor = brightness / 100.0;

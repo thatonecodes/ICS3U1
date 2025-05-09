@@ -62,7 +62,7 @@
             <MenuItem fx:id="closeFileButton" mnemonicParsing="false" text="Close" />
             <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#onSaveImage" text="Save" />
             <MenuItem fx:id="saveFileAsButton" mnemonicParsing="false" text="Save As…" />
-            <MenuItem fx:id="revertFileButton" mnemonicParsing="false" text="Revert" />
+            <MenuItem fx:id="revertFileButton" mnemonicParsing="false" onAction="#revertToOriginal" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem fx:id="prefButton" mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -109,9 +109,10 @@
             <Menu mnemonicParsing="false" text="Modify">
                <items>
                   <MenuItem fx:id="blurButton" mnemonicParsing="false" onAction="#onGaussianBlur" text="Gaussian Blur" />
-                  <MenuItem fx:id="invertButton" mnemonicParsing="false" text="Invert" />
-                  <MenuItem fx:id="grayScaleButton" mnemonicParsing="false" text="Greyscale" />
+                  <MenuItem fx:id="invertButton" mnemonicParsing="false" onAction="#onInvertImage" text="Invert" />
+                  <MenuItem fx:id="grayScaleButton" mnemonicParsing="false" onAction="#onGrayscaleImage" text="Greyscale" />
                   <MenuItem fx:id="sharpenButton" mnemonicParsing="false" text="Sharpen" />
+                  <MenuItem fx:id="brightenImage" mnemonicParsing="false" onAction="#onBrightenImage" text="Brighten" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="resizeButton" mnemonicParsing="false" text="Resize x2" />
                   <MenuItem fx:id="rotateImage" mnemonicParsing="false" onAction="#onRotateImage" text="Rotate" />

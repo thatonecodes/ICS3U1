@@ -77,7 +77,7 @@ public class AppUtils {
         }
     }
 
-    public static double promptForDegree(String title, String headerText, String contentText, String defaultVal) {
+    public static double prompt(String title, String headerText, String contentText, String defaultVal) {
         TextInputDialog dialog = new TextInputDialog(defaultVal); // default value
         dialog.setTitle(title);
         dialog.setHeaderText(headerText);

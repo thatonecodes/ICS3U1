@@ -137,6 +137,9 @@ public class PrimaryController {
     private MenuItem unselectAllButton;
 
     @FXML
+    private MenuItem brightenImage;
+
+    @FXML
     private Font x1;
 
     @FXML
@@ -184,7 +187,7 @@ public class PrimaryController {
 
     @FXML
     void onRotateImage(ActionEvent event) {
-        ImageUtils.onRotate(imageView, AppUtils.promptForDegree("Rotate Image", "Enter the rotation angle in degrees:", "Degrees:", "45"));
+        ImageUtils.onRotate(imageView, AppUtils.prompt("Rotate Image", "Enter the rotation angle in degrees:", "Degrees:", "45"));
     }
 
     @FXML
@@ -202,5 +205,13 @@ public class PrimaryController {
         ImageUtils.invertColor(imageView);
     }
 
-    // void onBrightenImage
+    @FXML
+    void onBrightenImage(ActionEvent event) {
+        ImageUtils.applyBrightness(imageView, AppUtils.prompt("Brighten Image", "Enter the brightness amount:", "Brightness:", "25"));
+    }
+
+    @FXML
+    void revertToOriginal(ActionEvent event) {
+        imageView.setImage(originalImage);
+    }
 }
