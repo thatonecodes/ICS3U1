@@ -9,10 +9,16 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -43,7 +49,7 @@ public class AppUtils {
         alert.showAndWait();
     }
 
-    public static void openImage(Image originalImage, ImageView canvasImage, Stage desiredStage) {
+    public static void openImage(ImageView canvasImage, Stage desiredStage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Image File");
         fileChooser.getExtensionFilters().add(
@@ -53,7 +59,6 @@ public class AppUtils {
             File file = fileChooser.showOpenDialog(desiredStage);
             if (file != null) {
                 Image image = new Image(file.toURI().toString());
-                originalImage = image;
                 canvasImage.setImage(image);
             }
         } catch (Exception e) {
@@ -93,5 +98,30 @@ public class AppUtils {
             }
         }
         return 0.0;
+    }
+
+    public static Color colorChooserPrompt() {
+        Dialog<Color> dialog = new Dialog<>();
+        dialog.setTitle("Choose a Color");
+
+        ColorPicker colorPicker = new ColorPicker();
+
+        VBox content = new VBox(50, colorPicker);
+        content.setStyle("-fx-padding: 20;");
+        dialog.getDialogPane().setContent(content);
+
+        ButtonType okButton = new ButtonType("OK", ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(okButton, cancelButton);
+
+        dialog.setResultConverter(dialogButton -> {
+            if (dialogButton == okButton) {
+                return colorPicker.getValue();
+            }
+            return null;
+        });
+
+        Optional<Color> result = dialog.showAndWait();
+        return result.orElse(null);
     }
 }

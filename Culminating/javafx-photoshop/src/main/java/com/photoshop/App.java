@@ -1,12 +1,15 @@
 package com.photoshop;
 
+import java.io.IOException;
+
+import com.photoshop.utils.Constants;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * JavaFX App
@@ -17,22 +20,21 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("main"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("main.fxml"));
+        Parent root = loader.load();
+
+        PrimaryController controller = loader.getController();
+        controller.setStage(stage);
+
+        scene = new Scene(root);
         stage.setScene(scene);
+
+        stage.setTitle(Constants.APP_NAME);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("assets/icon.png")));
         stage.show();
-    }
-
-    static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }

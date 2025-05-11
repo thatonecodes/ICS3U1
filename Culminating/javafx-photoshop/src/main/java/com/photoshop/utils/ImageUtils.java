@@ -67,7 +67,7 @@ public class ImageUtils {
                     }
                 }
 
-                Color blurredColor = new Color(clamp(redSum), clamp(greenSum), clamp(blueSum), 1.0);
+                Color blurredColor = new Color(clamp(redSum), clamp(greenSum), clamp(blueSum), reader.getColor(x, y).getOpacity());
                 writer.setColor(x, y, blurredColor);
             }
         }
@@ -144,7 +144,8 @@ public class ImageUtils {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 Color color = reader.getColor(x, y);
-                writer.setColor(x, y, new Color(color.getRed() * Constants.GRAYSCALE_VALUES[0], color.getGreen() * Constants.GRAYSCALE_VALUES[1], color.getBlue() * Constants.GRAYSCALE_VALUES[2], color.getOpacity()));
+                double gray = color.getRed() * Constants.GRAYSCALE_VALUES[0] + color.getGreen() * Constants.GRAYSCALE_VALUES[1] + color.getBlue() * Constants.GRAYSCALE_VALUES[2];
+                writer.setColor(x, y, new Color(gray, gray, gray, color.getOpacity()));
             }
         }
 
@@ -202,9 +203,7 @@ public class ImageUtils {
     }
 
     public static void applyBrightness(ImageView imageView, double brightness) {
-        // clamp brightness between 1 and 100
-        brightness = Math.max(1, Math.min(brightness, 100));
-        double factor = brightness / 100.0;
+        double factor = brightness;
     
         Image sourceImage = imageView.getImage();
         int width = (int) sourceImage.getWidth();
@@ -227,5 +226,238 @@ public class ImageUtils {
         }
     
         imageView.setImage(brightenedImage);
+    }
+
+    public static void applyPixelation(ImageView imageView, int blockSize) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage pixelatedImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = pixelatedImage.getPixelWriter();
+    
+        for (int y = 0; y < height; y += blockSize) {
+            for (int x = 0; x < width; x += blockSize) {
+                Color color = reader.getColor(x, y);
+    
+                for (int dy = 0; dy < blockSize; dy++) {
+                    for (int dx = 0; dx < blockSize; dx++) {
+                        int px = x + dx;
+                        int py = y + dy;
+    
+                        if (px < width && py < height) {
+                            writer.setColor(px, py, color);
+                        }
+                    }
+                }
+            }
+        }
+    
+        imageView.setImage(pixelatedImage);
+    }
+
+    public static void applyColorOverlay(ImageView imageView, Color overlayColor) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage coloredImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = coloredImage.getPixelWriter();
+    
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                Color original = reader.getColor(x, y);
+    
+                double r = (original.getRed() + overlayColor.getRed()) / 2.0;
+                double g = (original.getGreen() + overlayColor.getGreen()) / 2.0;
+                double b = (original.getBlue() + overlayColor.getBlue()) / 2.0;
+                double a = original.getOpacity();
+    
+                writer.setColor(x, y, new Color(r, g, b, a));
+            }
+        }
+        imageView.setImage(coloredImage);
+    }
+
+
+    public static void applyBulge(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage distortedImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = distortedImage.getPixelWriter();
+    
+        double cx = width / 2.0;
+        double cy = height / 2.0;
+    
+        double p = Constants.BULGE_DISTORTION_POWER;
+        double s = Constants.BULGE_SCALE_FACTOR;
+    
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                double dx = x - cx;
+                double dy = y - cy;
+    
+                double r = Math.sqrt(dx * dx + dy * dy);
+                double theta = Math.atan2(dy, dx);
+    
+                double rPrime = Math.pow(r, p) / s;
+    
+                double srcX = cx + rPrime * Math.cos(theta);
+                double srcY = cy + rPrime * Math.sin(theta);
+    
+                if (srcX >= 0 && srcX < width && srcY >= 0 && srcY < height) {
+                    Color color = reader.getColor((int) srcX, (int) srcY);
+                    writer.setColor(x, y, color);
+                } else {
+                    writer.setColor(x, y, Color.TRANSPARENT);
+                }
+            }
+        }
+
+        imageView.setImage(distortedImage);
+    }
+
+    public static void applyVignette(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage vignettedImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = vignettedImage.getPixelWriter();
+    
+        double cx = width / 2.0;
+        double cy = height / 2.0;
+    
+        double maxDist = Math.sqrt(cx * cx + cy * cy);
+        // don't go fully black
+        double minFactor = Constants.VIGNETTE_MIN_SCALE;
+    
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                double dx = x - cx;
+                double dy = y - cy;
+                double dist = Math.sqrt(dx * dx + dy * dy);
+    
+                double factor = 1.0 - (dist / maxDist);
+
+                factor = Math.max(minFactor, Math.min(1.0, factor));
+    
+                Color original = reader.getColor(x, y);
+    
+                double hue = original.getHue();
+                double sat = original.getSaturation();
+                double bright = original.getBrightness();
+    
+                writer.setColor(x, y, Color.hsb(hue, sat, bright * factor, original.getOpacity()));
+            }
+        }
+    
+        imageView.setImage(vignettedImage);
+    }
+
+    public static void applyEdgeDetection(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage resultImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = resultImage.getPixelWriter();
+        
+        // note: kernel defined should be square, ex. 3x3, 4x4, etc.
+        int kernelSize = Constants.EDGE_DETECTION_KERNEL.length;
+        int offset = kernelSize / 2;
+    
+        for (int x = offset; x < width - offset; x++) {
+            for (int y = offset; y < height - offset; y++) {
+                double r = 0;
+                double g = 0;
+                double b = 0;
+    
+                for (int ky = 0; ky < kernelSize; ky++) {
+                    for (int kx = 0; kx < kernelSize; kx++) {
+                        int pixelX = x + kx - offset;
+                        int pixelY = y + ky - offset;
+                        Color color = reader.getColor(pixelX, pixelY);
+                        double kernelVal = Constants.EDGE_DETECTION_KERNEL[ky][kx];
+    
+                        r += color.getRed() * kernelVal;
+                        g += color.getGreen() * kernelVal;
+                        b += color.getBlue() * kernelVal;
+                    }
+                }
+    
+                writer.setColor(x, y, new Color(clamp(r), clamp(g), clamp(b), reader.getColor(x, y).getOpacity()));
+            }
+        }
+    
+        imageView.setImage(resultImage);
+    }
+
+    public static void applyEmboss(ImageView imageView) {
+        Image sourceImage = imageView.getImage();
+        int width = (int) sourceImage.getWidth();
+        int height = (int) sourceImage.getHeight();
+    
+        WritableImage resultImage = new WritableImage(width, height);
+        PixelReader reader = sourceImage.getPixelReader();
+        PixelWriter writer = resultImage.getPixelWriter();
+    
+        int kernelSize = Constants.EMBOSS_KERNEL.length;
+        int offset = kernelSize / 2;
+    
+        for (int x = offset; x < width - offset; x++) {
+            for (int y = offset; y < height - offset; y++) {
+                double r = 0;
+                double g = 0;
+                double b = 0;
+    
+                for (int ky = 0; ky < kernelSize; ky++) {
+                    for (int kx = 0; kx < kernelSize; kx++) {
+                        int pixelX = x + kx - offset;
+                        int pixelY = y + ky - offset;
+                        Color color = reader.getColor(pixelX, pixelY);
+                        double kernelVal = Constants.EMBOSS_KERNEL[ky][kx];
+    
+                        r += color.getRed() * kernelVal;
+                        g += color.getGreen() * kernelVal;
+                        b += color.getBlue() * kernelVal;
+                    }
+                }
+    
+                writer.setColor(x, y, new Color(clamp(r), clamp(g), clamp(b), reader.getColor(x, y).getOpacity()));
+            }
+        }
+    
+        imageView.setImage(resultImage);
+    }
+
+    public static void resizeImage(ImageView imageView, double scale) {
+        Image image = imageView.getImage();
+        int newWidth = (int) (image.getWidth() * scale);
+        int newHeight = (int) (image.getHeight() * scale);
+    
+        WritableImage resizedImage = new WritableImage(newWidth, newHeight);
+        PixelReader reader = image.getPixelReader();
+        PixelWriter writer = resizedImage.getPixelWriter();
+    
+        for (int y = 0; y < newHeight; y++) {
+            for (int x = 0; x < newWidth; x++) {
+                int srcX = (int) (x / scale);
+                int srcY = (int) (y / scale);
+                writer.setColor(x, y, reader.getColor(srcX, srcY));
+            }
+        }
+        
+        imageView.setImage(resizedImage);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(0);
+        imageView.setFitHeight(0);
     }
 }
