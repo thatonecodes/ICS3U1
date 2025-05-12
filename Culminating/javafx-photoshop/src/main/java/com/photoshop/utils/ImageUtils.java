@@ -361,7 +361,7 @@ public class ImageUtils {
         imageView.setImage(vignettedImage);
     }
 
-    public static void applyEdgeDetection(ImageView imageView) {
+    private static void applyKernelToImage(ImageView imageView, double[][] kernel) {
         Image sourceImage = imageView.getImage();
         int width = (int) sourceImage.getWidth();
         int height = (int) sourceImage.getHeight();
@@ -369,9 +369,8 @@ public class ImageUtils {
         WritableImage resultImage = new WritableImage(width, height);
         PixelReader reader = sourceImage.getPixelReader();
         PixelWriter writer = resultImage.getPixelWriter();
-        
-        // note: kernel defined should be square, ex. 3x3, 4x4, etc.
-        int kernelSize = Constants.EDGE_DETECTION_KERNEL.length;
+    
+        int kernelSize = kernel.length;
         int offset = kernelSize / 2;
     
         for (int x = offset; x < width - offset; x++) {
@@ -385,7 +384,7 @@ public class ImageUtils {
                         int pixelX = x + kx - offset;
                         int pixelY = y + ky - offset;
                         Color color = reader.getColor(pixelX, pixelY);
-                        double kernelVal = Constants.EDGE_DETECTION_KERNEL[ky][kx];
+                        double kernelVal = kernel[ky][kx];
     
                         r += color.getRed() * kernelVal;
                         g += color.getGreen() * kernelVal;
@@ -400,42 +399,12 @@ public class ImageUtils {
         imageView.setImage(resultImage);
     }
 
+    public static void applyEdgeDetection(ImageView imageView) {
+        applyKernelToImage(imageView, Constants.EDGE_DETECTION_KERNEL);
+    }
+
     public static void applyEmboss(ImageView imageView) {
-        Image sourceImage = imageView.getImage();
-        int width = (int) sourceImage.getWidth();
-        int height = (int) sourceImage.getHeight();
-    
-        WritableImage resultImage = new WritableImage(width, height);
-        PixelReader reader = sourceImage.getPixelReader();
-        PixelWriter writer = resultImage.getPixelWriter();
-    
-        int kernelSize = Constants.EMBOSS_KERNEL.length;
-        int offset = kernelSize / 2;
-    
-        for (int x = offset; x < width - offset; x++) {
-            for (int y = offset; y < height - offset; y++) {
-                double r = 0;
-                double g = 0;
-                double b = 0;
-    
-                for (int ky = 0; ky < kernelSize; ky++) {
-                    for (int kx = 0; kx < kernelSize; kx++) {
-                        int pixelX = x + kx - offset;
-                        int pixelY = y + ky - offset;
-                        Color color = reader.getColor(pixelX, pixelY);
-                        double kernelVal = Constants.EMBOSS_KERNEL[ky][kx];
-    
-                        r += color.getRed() * kernelVal;
-                        g += color.getGreen() * kernelVal;
-                        b += color.getBlue() * kernelVal;
-                    }
-                }
-    
-                writer.setColor(x, y, new Color(clamp(r), clamp(g), clamp(b), reader.getColor(x, y).getOpacity()));
-            }
-        }
-    
-        imageView.setImage(resultImage);
+        applyKernelToImage(imageView, Constants.EMBOSS_KERNEL);
     }
 
     public static void resizeImage(ImageView imageView, double scale) {

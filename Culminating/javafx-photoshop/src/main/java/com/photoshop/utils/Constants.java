@@ -14,5 +14,5 @@ public class Constants {
     public static final double BULGE_SCALE_FACTOR = 30.0;
     public static final double VIGNETTE_MIN_SCALE = 0.3;
     public static final double[][] EDGE_DETECTION_KERNEL = new double[][] {{ 1, 1, 1 },{ 1, -7, 1 },{ 1, 1, 1 }};
-    public static final double[][] EMBOSS_KERNEL = new double[][] {{ 2, -1, 0 }, { -1, 1, 1 }, { 0, 1, 2 }};
+    public static final double[][] EMBOSS_KERNEL = new double[][] {{ -2, -1, 0 }, { -1, 1, 1 }, { 0, 1, 2 }};
 }

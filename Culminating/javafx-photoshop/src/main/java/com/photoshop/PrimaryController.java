@@ -9,12 +9,10 @@ import com.photoshop.utils.ImageUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -75,12 +73,6 @@ public class PrimaryController {
 
     @FXML
     private MenuItem bulgeButton;
-
-    @FXML
-    private Label metadataLabel;
-
-    @FXML
-    private AnchorPane metadataPane;
 
     @FXML
     private MenuItem newFileLabel;
@@ -164,7 +156,7 @@ public class PrimaryController {
             redoStack.clear(); //clear redo history on new action
         }
     }
-    
+
     @FXML
     void quitAppButton(ActionEvent event) {
         AppUtils.quitApp();

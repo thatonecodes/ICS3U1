@@ -26,7 +26,7 @@ public class App extends Application {
         PrimaryController controller = loader.getController();
         controller.setStage(stage);
 
-        scene = new Scene(root);
+        scene = new Scene(root, 750, 750);
         stage.setScene(scene);
 
         stage.setTitle(Constants.APP_NAME);
