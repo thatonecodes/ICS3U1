@@ -51,7 +51,7 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.photoshop.PrimaryController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="toolbar" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -89,7 +89,7 @@
             <MenuItem fx:id="zoomButton" mnemonicParsing="false" text="Zoom" />
                   <MenuItem fx:id="fullscreenButton" mnemonicParsing="false" onAction="#onFullscreen" text="Fullscreen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="hideToolbarButton" mnemonicParsing="false" text="Hide Toolbar" />
+                  <MenuItem fx:id="hideToolbarButton" mnemonicParsing="false" onAction="#onHideToolbar" text="Hide Toolbar" />
           </items>
         </Menu>
             <Menu mnemonicParsing="false" text="Color">

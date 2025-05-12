@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -134,6 +135,9 @@ public class PrimaryController {
 
     @FXML
     private MenuItem vignetteButton;
+
+    @FXML
+    private MenuBar toolbar;
 
     @FXML
     private MenuItem brightenImage;
@@ -303,6 +307,12 @@ public class PrimaryController {
         if (stage != null) {
             stage.setFullScreen(true);
         }
+    }
+
+    @FXML
+    void onHideToolbar(ActionEvent event) {
+        toolbar.setVisible(false);
+        toolbar.setManaged(false); //TODO: add a way to unhide the toolbar
     }
 
     public void setStage(Stage stage) {
