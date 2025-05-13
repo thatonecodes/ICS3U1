@@ -1,5 +1,7 @@
 package EnumAssignment;
 
+import java.util.Random;
+
 public enum HttpStatus {
 
     CONTINUE(100, "Continue"),
@@ -85,5 +87,11 @@ public enum HttpStatus {
             }
         }
         return false;
+    }
+
+    public HttpStatus getRandomHttpStatus() {
+        // return a random HTTPStatus enum
+        HttpStatus[] array = HttpStatus.values();
+        return array[new Random().nextInt(array.length)];
     }
 }

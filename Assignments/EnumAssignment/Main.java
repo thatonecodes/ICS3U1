@@ -12,6 +12,7 @@ public class Main {
             System.out.println(" → Is Common Code: " + status.isCommonCode());
             System.out.println(" → Is Cacheable: " + status.isCacheable());
             System.out.println(" → Response Type: " + status.responseType(status.getCode()));
+            System.out.println(" → Get Random HTTP Code: " + status.getRandomHttpStatus());
             System.out.println();
         }
 
