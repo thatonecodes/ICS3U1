@@ -28,6 +28,7 @@ import java.net.URISyntaxException;
  */
 public class PostRequest extends HttpRequest {
 
+	/** Variable to store the Post Request's body as a String */
 	private String body;
 
 	/**

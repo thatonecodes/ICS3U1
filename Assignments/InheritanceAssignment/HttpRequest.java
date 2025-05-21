@@ -28,8 +28,11 @@ import java.net.URISyntaxException;
  **/
 public class HttpRequest {
 
+	/** Variable to store the URL in the HTTPRequest */
 	private String url;
+	/** Variable to store the HTTP method */
 	private String method;
+	/** Variable to store any headers in the request, <String, String> pair hashmap */
 	private Map<String, String> headers = new HashMap<>();
 
 	/**
