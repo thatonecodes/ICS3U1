@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyEvent;
+import javafx.event.EventHandler;
 
 /**
  * JavaFX App
@@ -27,6 +29,12 @@ public class App extends Application {
         controller.setStage(stage);
 
         scene = new Scene(root, 750, 750);
+        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                controller.handleKeyPress(event);
+            }
+        });
         stage.setScene(scene);
 
         stage.setTitle(Constants.APP_NAME);

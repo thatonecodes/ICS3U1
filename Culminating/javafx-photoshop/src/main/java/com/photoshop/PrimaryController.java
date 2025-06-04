@@ -9,10 +9,12 @@ import com.photoshop.utils.ImageUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
@@ -148,6 +150,9 @@ public class PrimaryController {
 
     @FXML
     private MenuItem zoomButton;
+
+    @FXML
+    private Label quickActionLabel;
 
     private void saveState() {
         Image current = imageView.getImage();
@@ -304,7 +309,26 @@ public class PrimaryController {
     @FXML
     void onHideToolbar(ActionEvent event) {
         toolbar.setVisible(false);
-        toolbar.setManaged(false); //TODO: add a way to unhide the toolbar
+        toolbar.setManaged(false);
+    }
+    
+
+    void handleKeyPress(KeyEvent event) {
+        switch (event.getCode()) {
+            case Z:
+                if (event.isControlDown()) {
+                    onUndo(null);
+                }
+                if (event.isControlDown() && event.isShiftDown()) {
+                    onRedo(null);
+                }
+                break;
+            case F11:
+                onFullscreen(null);
+                break;
+            default:
+                break;
+        }
     }
 
     public void setStage(Stage stage) {
