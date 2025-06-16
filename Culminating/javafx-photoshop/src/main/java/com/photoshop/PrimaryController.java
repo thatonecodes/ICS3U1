@@ -155,6 +155,7 @@ public class PrimaryController {
     private Label quickActionLabel;
 
     private void saveState() {
+        AppUtils.checkImageLoaded(imageView);
         Image current = imageView.getImage();
         if (current != null) {
             undoStack.push(current);

@@ -124,4 +124,11 @@ public class AppUtils {
         Optional<Color> result = dialog.showAndWait();
         return result.orElse(null);
     }
+
+    public static void checkImageLoaded(ImageView imageView) {
+        if (imageView.getImage() == null) {
+            AppUtils.createAlert("Error", "No image loaded", "Please load an image before applying effects.", AlertType.ERROR);
+            return;
+        }
+    }
 }
