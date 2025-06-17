@@ -35,19 +35,19 @@ public class PrimaryController {
     private MenuItem blurButton;
 
     @FXML
-    private MenuItem closeFileButton;
+    private MenuItem brightenImage;
 
     @FXML
-    private MenuItem copyButton;
+    private MenuItem bulgeButton;
 
     @FXML
-    private ImageView imageView;
+    private MenuItem colorOverlayButton;
 
     @FXML
-    private MenuItem cutButton;
+    private MenuItem edgeDetectButton;
 
     @FXML
-    private MenuItem deleteButton;
+    private MenuItem embossButton;
 
     @FXML
     private MenuItem fullscreenButton;
@@ -59,34 +59,22 @@ public class PrimaryController {
     private MenuItem hideToolbarButton;
 
     @FXML
-    private MenuItem edgeDetectButton;
+    private MenuItem horizontalFlip;
 
     @FXML
-    private MenuItem embossButton;
+    private ImageView imageView;
 
     @FXML
     private MenuItem invertButton;
 
     @FXML
-    private MenuItem pixelButton;
-
-    @FXML
-    private MenuItem colorOverlayButton;
-
-    @FXML
-    private MenuItem bulgeButton;
-
-    @FXML
-    private MenuItem newFileLabel;
-
-    @FXML
     private MenuItem openFileButton;
 
     @FXML
-    private MenuItem pasteButton;
+    private MenuItem pixelButton;
 
     @FXML
-    private MenuItem prefButton;
+    private Label quickActionLabel;
 
     @FXML
     private MenuItem quitButton;
@@ -95,52 +83,34 @@ public class PrimaryController {
     private MenuItem redoButton;
 
     @FXML
-    private MenuItem sepiaButton;
-
-    @FXML
     private MenuItem resizeButton;
 
     @FXML
-    private MenuItem revertFileButton;
-
-    @FXML
-    private MenuItem saveFileAsButton;
-
-    @FXML
-    private MenuItem saveFileButton;
+    private MenuItem restoreButton;
 
     @FXML
     private MenuItem rotateImage;
 
     @FXML
-    private MenuItem selectAllButton;
+    private MenuItem saveFileButton;
 
     @FXML
-    private MenuItem horizontalFlip;
+    private MenuItem sepiaButton;
 
     @FXML
     private MenuItem sharpenButton;
 
     @FXML
-    private MenuItem undoButton;
-
-    @FXML
-    private MenuItem unselectAllButton;
-
-    @FXML
-    private MenuItem vignetteButton;
-
-    @FXML
     private MenuBar toolbar;
 
     @FXML
-    private MenuItem brightenImage;
+    private MenuItem undoButton;
 
     @FXML
-    private Font x1;
+    private MenuItem verticalFlipButton;
 
     @FXML
-    private Color x2;
+    private MenuItem vignetteButton;
 
     @FXML
     private Font x3;
@@ -148,18 +118,15 @@ public class PrimaryController {
     @FXML
     private Color x4;
 
-    @FXML
-    private MenuItem zoomButton;
-
-    @FXML
-    private Label quickActionLabel;
-
-    private void saveState() {
-        AppUtils.checkImageLoaded(imageView);
+    private boolean saveState() {
         Image current = imageView.getImage();
         if (current != null) {
             undoStack.push(current);
             redoStack.clear(); //clear redo history on new action
+            return true;
+        } else {
+            AppUtils.createAlert("Error", "No image loaded", "Please load an image before applying effects.", AlertType.ERROR);
+            return false;
         }
     }
 
@@ -189,49 +156,73 @@ public class PrimaryController {
 
     @FXML
     void onHorizontalFlip(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.onHorizontalFlip(imageView);
     }
 
     @FXML
+    void onVerticalFlip(ActionEvent event) {
+        if (!saveState()) {
+            return;
+        }
+        ImageUtils.onVerticalFlip(imageView);
+    }
+
+    @FXML
     void onGaussianBlur(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyGaussianBlur(imageView, Constants.BLUR_RADIUS, Constants.BLUR_SIGMA);
     }
 
     @FXML
     void onRotateImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.onRotate(imageView, AppUtils.prompt("Rotate Image", "Enter the rotation angle in degrees:", "Degrees:", "45"));
     }
 
     @FXML
     void onGrayscaleImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyGrayscale(imageView);
     }
 
     @FXML
     void onSepiaImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applySepia(imageView);
     }
 
     @FXML
     void onInvertImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.invertColor(imageView);
     }
 
     @FXML
     void onBrightenImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyBrightness(imageView, AppUtils.prompt("Brighten Image", "Enter the brightness amount:", "Brightness:", "1.0"));
     }
 
     @FXML
     void revertToOriginal(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         imageView.setImage(originalImage);
         imageView.setPreserveRatio(true);
         imageView.setFitWidth(originalFitWidth);
@@ -240,44 +231,66 @@ public class PrimaryController {
 
     @FXML
     void onPixelImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyPixelation(imageView, Constants.PIXEL_BLOCK_SIZE);
     }
 
     @FXML
     void onColorOverlay(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyColorOverlay(imageView, AppUtils.colorChooserPrompt());
     }
 
     @FXML
     void onBulgeImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyBulge(imageView);
     }
 
     @FXML
     void onVignetteImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyVignette(imageView);
     }
 
     @FXML
     void onEdgeDetectImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyEdgeDetection(imageView);
     }
 
     @FXML
     void onEmbossImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.applyEmboss(imageView);
     }
 
     @FXML
     void onResizeImage(ActionEvent event) {
-        saveState();
+        if (!saveState()) {
+            return;
+        }
         ImageUtils.resizeImage(imageView, AppUtils.prompt("Resize", "Resize Image", "Enter the scale you would like to resize the image to:", "1.0"));
+    }
+
+    @FXML
+    void onSharpenImage(ActionEvent event) {
+        if (!saveState()) {
+            return;
+        }
+        ImageUtils.applySharpen(imageView);
     }
 
     @FXML

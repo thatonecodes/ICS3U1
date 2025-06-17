@@ -95,6 +95,23 @@ public class ImageUtils {
         imageView.setImage(writableImage);
     }
 
+    public static void onVerticalFlip(ImageView imageView) {
+        int width = (int) imageView.getImage().getWidth();
+        int height = (int) imageView.getImage().getHeight();
+
+        WritableImage writableImage = new WritableImage(width, height);
+        PixelReader reader = imageView.getImage().getPixelReader();
+        PixelWriter writer = writableImage.getPixelWriter();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                writer.setColor(x, height - y - 1, reader.getColor(x, y));
+            }
+        }
+
+        imageView.setImage(writableImage);
+    }
+
     public static void onRotate(ImageView imageView, double degree) {
         Image sourceImage = imageView.getImage();
         int width = (int) sourceImage.getWidth();
@@ -405,6 +422,10 @@ public class ImageUtils {
 
     public static void applyEmboss(ImageView imageView) {
         applyKernelToImage(imageView, Constants.EMBOSS_KERNEL);
+    }
+
+    public static void applySharpen(ImageView imageView) {
+        applyKernelToImage(imageView, Constants.SHARPEN_KERNEL);
     }
 
     public static void resizeImage(ImageView imageView, double scale) {

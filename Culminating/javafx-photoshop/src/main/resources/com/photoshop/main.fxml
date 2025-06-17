@@ -53,65 +53,53 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem fx:id="newFileLabel" mnemonicParsing="false" text="New" />
-            <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#onOpenImage" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem fx:id="openFileButton" mnemonicParsing="false" onAction="#onOpenImage" text="Open" />
+            <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#onSaveImage" text="Save As" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="closeFileButton" mnemonicParsing="false" text="Close" />
-            <MenuItem fx:id="saveFileButton" mnemonicParsing="false" onAction="#onSaveImage" text="Save" />
-            <MenuItem fx:id="saveFileAsButton" mnemonicParsing="false" text="Save As…" />
-            <MenuItem fx:id="revertFileButton" mnemonicParsing="false" onAction="#revertToOriginal" text="Revert" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="prefButton" mnemonicParsing="false" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quitAppButton" text="Quit" />
+                  <MenuItem fx:id="restoreButton" mnemonicParsing="false" onAction="#revertToOriginal" text="Restore To Original" />
                   <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="quitButton" mnemonicParsing="false" onAction="#quitAppButton" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
           <items>
             <MenuItem fx:id="undoButton" mnemonicParsing="false" onAction="#onUndo" text="Undo" />
             <MenuItem fx:id="redoButton" mnemonicParsing="false" onAction="#onRedo" text="Redo" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="cutButton" mnemonicParsing="false" text="Cut" />
-            <MenuItem fx:id="copyButton" mnemonicParsing="false" text="Copy" />
-            <MenuItem fx:id="pasteButton" mnemonicParsing="false" text="Paste" />
-            <MenuItem fx:id="deleteButton" mnemonicParsing="false" text="Delete" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="selectAllButton" mnemonicParsing="false" text="Select All" />
-            <MenuItem fx:id="unselectAllButton" mnemonicParsing="false" text="Unselect All" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="View">
           <items>
-            <MenuItem fx:id="zoomButton" mnemonicParsing="false" text="Zoom" />
                   <MenuItem fx:id="fullscreenButton" mnemonicParsing="false" onAction="#onFullscreen" text="Fullscreen" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="hideToolbarButton" mnemonicParsing="false" onAction="#onHideToolbar" text="Hide Toolbar" />
           </items>
         </Menu>
+            <Menu mnemonicParsing="false" text="Transform">
+               <items>
+                  <MenuItem fx:id="verticalFlipButton" mnemonicParsing="false" onAction="#onVerticalFlip" text="Vertical Flip" />
+                  <MenuItem fx:id="horizontalFlip" mnemonicParsing="false" onAction="#onHorizontalFlip" text="Horizontal Flip" />
+                  <MenuItem fx:id="rotateImage" mnemonicParsing="false" onAction="#onRotateImage" text="Rotation" />
+                  <MenuItem fx:id="resizeButton" mnemonicParsing="false" onAction="#onResizeImage" text="Resize" />
+               </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Color">
                <items>
                   <MenuItem fx:id="grayScaleButton" mnemonicParsing="false" onAction="#onGrayscaleImage" text="Greyscale" />
-                  <MenuItem fx:id="invertButton" mnemonicParsing="false" onAction="#onInvertImage" text="Invert" />
+                  <MenuItem fx:id="invertButton" mnemonicParsing="false" onAction="#onInvertImage" text="Invert Color" />
                   <MenuItem fx:id="brightenImage" mnemonicParsing="false" onAction="#onBrightenImage" text="Brighten" />
-                  <MenuItem fx:id="sepiaButton" mnemonicParsing="false" onAction="#onSepiaImage" text="Sepia" />
+                  <MenuItem fx:id="sepiaButton" mnemonicParsing="false" onAction="#onSepiaImage" text="Sepia Tone" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Modify">
+            <Menu mnemonicParsing="false" text="Effects">
                <items>
                   <MenuItem fx:id="blurButton" mnemonicParsing="false" onAction="#onGaussianBlur" text="Gaussian Blur" />
-                  <MenuItem fx:id="sharpenButton" mnemonicParsing="false" text="Sharpen" />
+                  <MenuItem fx:id="sharpenButton" mnemonicParsing="false" onAction="#onSharpenImage" text="Sharpen" />
                   <MenuItem fx:id="colorOverlayButton" mnemonicParsing="false" onAction="#onColorOverlay" text="Color Overlay" />
                   <MenuItem fx:id="pixelButton" mnemonicParsing="false" onAction="#onPixelImage" text="Pixelate" />
                   <MenuItem fx:id="bulgeButton" mnemonicParsing="false" onAction="#onBulgeImage" text="Bulge" />
                   <MenuItem fx:id="vignetteButton" mnemonicParsing="false" onAction="#onVignetteImage" text="Vignette" />
                   <MenuItem fx:id="edgeDetectButton" mnemonicParsing="false" onAction="#onEdgeDetectImage" text="Edge Detection" />
                   <MenuItem fx:id="embossButton" mnemonicParsing="false" onAction="#onEmbossImage" text="Emboss" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="resizeButton" mnemonicParsing="false" onAction="#onResizeImage" text="Resize" />
-                  <MenuItem fx:id="rotateImage" mnemonicParsing="false" onAction="#onRotateImage" text="Rotate" />
-                  <MenuItem fx:id="horizontalFlip" mnemonicParsing="false" onAction="#onHorizontalFlip" text="Horizontal Flip" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
