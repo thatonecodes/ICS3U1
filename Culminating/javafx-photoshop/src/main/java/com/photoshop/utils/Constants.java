@@ -1,6 +1,10 @@
 package com.photoshop.utils;
 
-public class Constants {
+public final class Constants {
+
+    private Constants(){
+        throw new UnsupportedOperationException("Constants class cannot be instantiated");
+    }
 
     public static final String VERSION_NUMBER = "1.0.0";
     public static final String APP_NAME = "Botoshop";
