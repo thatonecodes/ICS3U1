@@ -1,4 +1,4 @@
-# ICS3U1
+# ICS3U1 
 This is the ICS3U1 repository, which contains all the source code for the course.
 ---
 The repository is organized by units and each unit has its own folder.
@@ -19,3 +19,4 @@ If running the code inside the ICS3U1 folder, your `.vscode/settings.json` file 
     ]
 }
 ```
+Adding this to the `settings.json` file prevents `file not in source path` errors in your IDE.
