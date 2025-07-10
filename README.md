@@ -20,3 +20,6 @@ If running the code inside the ICS3U1 folder, your `.vscode/settings.json` file 
 }
 ```
 Adding this to the `settings.json` file prevents `file not in source path` errors in your IDE.
+
+## Note
+The `Extras` directory contains extra code written in Java that was NOT part of the course, but some of which I found useful when I was programming.
